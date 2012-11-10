@@ -36,7 +36,7 @@ window.onload = function(){
 			})
 			.onHit("Enemy",function(){
 				this.color('rgb(255,0,0)')
-			})
+			});
 
 		Crafty.e("Enemy, 2D, Canvas, Color, Collision")
 			.color('rgb(0,0,255)')
@@ -49,8 +49,8 @@ window.onload = function(){
 			});
 
 		Crafty.e("Sun, 2D, Canvas, Color, Collision")
-			.color('r(255,255,0)')
-			.attr({ x: 125, y: 300, w: 150, h: 40 })
+			.color('#FE0')
+			.attr({ x: 125, y: 300, w: 150, h: 40 });
 
 	});
 

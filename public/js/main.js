@@ -4,11 +4,6 @@
   NW.socket       = io.connect(window.location.origin);
   NW.inGame       = false;
 
-  NW.$ = function(selector) {
-    NW.$[selector] == undefined && (NW.$[selector] = $(selector));
-    return NW.$[selector]
-  }
-
   $(init);
 
   function init() {

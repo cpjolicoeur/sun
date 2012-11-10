@@ -1,4 +1,5 @@
 var UserController = require("../controller/user");
+var GameController = require("../controller/game");
 var passport = require("passport");
 
 var ensureAuthenticated = function(req, res, next) {

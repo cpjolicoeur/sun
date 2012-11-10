@@ -133,8 +133,10 @@
         .bind("NW:PlayerMoved", function(data) {
           // console.log("NW:PlayerMoved - client", data);
           // x < 0 is right, x > 0 is left
+          // z < 0 is forward, z > 0 is backward
           var from = {x: this.x, y: this.y};
           this.x = (data.x < 0) ? (this.x + this.movementSpeed) : (this.x - this.movementSpeed)
+          this.y = (data.z > 0) ? (this.y + this.movementSpeed) : (this.y - this.movementSpeed)
           this.trigger("Moved", from);
         });
       }

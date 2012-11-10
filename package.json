@@ -1,19 +1,38 @@
 {
   "name": "nko3-narwhals",
-  "version": "0.0.0",
-  "description": "☃                   ˿̴̵̶̷̸̡̢̧̨̛̖̗̘̙̜̝̞̟̠̣̤̥̦̩̪̫̬̭̮̯̰̱̲̳̹̺̻̼͇͈͉͍͎̀́̂̃̄̅̆̇̈̉̊̋̌̍̎̏̐̑̒̓̔̽̾̿̀́͂̓̈́͆͊͋͌̕̚ͅ͏͓͔͕͖͙͚͐͑͒͗͛ͣͤͥͦͧͨͩͪͫͬͭͮͯ͘͜͟͢͝͞͠͡narwhals͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠͠",
+  "version": "0.0.1",
+  "description": "Node Knockout 2012 entry",
   "main": "server.js",
+  "license": "RESTRICTED",
   "scripts": {
-    "start": "node server.js"
+    "start": "node ./server.js",
+    "test": "mocha --watch ./tests/test"
   },
   "repository": {
     "type": "git",
     "url": "git@github.com:nko3/narwhals.git"
   },
-  "dependencies": {
-  },
+  "subdomain": "narwhals.nko3",
+  "domains": [],
   "engines": {
     "node": "0.8.x"
   },
-  "subdomain": "narwhals.nko3"
+  "contributors": [
+    {"name": "Sam Saccone"},
+    {"name": "Craig P Jolicoeur"},
+    {"name": "Will Farrell"},
+    {"name": "David Dufresne"}
+  ],
+  "dependencies": {
+    "express": "3.0.2",
+    "jade": "0.27.7",
+    "mocha": "1.7.0",
+    "node-uuid": "1.4.0",
+    "colors": "0.6.0-1",
+    "mongoose": "3.3.1",
+    "passport": "0.1.15",
+    "passport-local": "0.1.6",
+    "socket.io": "0.9.11",
+    "lodash": "0.9.1"
+  }
 }

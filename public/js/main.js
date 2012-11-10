@@ -25,10 +25,6 @@
     }
   }
 
-  NW.createNewGame = function() {
-    NW.socket.emit("new_game");
-  }
-
   function controllerOrientChange(data) {
     if (NW.inGame) {
       NW.error("sending socket volatile: "+data.x);

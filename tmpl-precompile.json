@@ -13,7 +13,8 @@
                 "enter_token",
                 "give_token",
                 "choose_mode",
-                "controller_view"
+                "controller_view",
+                "game_view"
             ]
         }
     ]

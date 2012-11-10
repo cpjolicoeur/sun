@@ -7,7 +7,6 @@
     });
 
     NW.socket.on("new_game:success", function(data) {
-      console.log("new_game created", data);
       $(".token", NW.$( '#sync_with_desktop' )).html(data.token);
     });
 

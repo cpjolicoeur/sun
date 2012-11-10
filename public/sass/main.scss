@@ -44,11 +44,21 @@ html {
   padding-left: $spacing_block;
 }
 
-.toggle {
+
+#mode_toggle {
+  text-align: center;
   .btn {
     font-weight: bold;
-    &.first {
+    background-size: 20px !important;
+    padding-left: 40px;
+    text-align: left;
+    width: 110px;
+    &.controller {
       border-right: solid 1px #000;
+      background: #57C757 url('images/compass.png') 10px center no-repeat;
+    }
+    &.screen {
+      background: #57A8C7 url('images/eye.png') 10px center no-repeat;
     }
   }
 }
@@ -57,10 +67,4 @@ html {
   padding: $spacing_block;
   background: #57C757;
   cursor: pointer;
-  &.first {
-    background: #5DC9BC;
-  }
-  &.second {
-    background: #827CAC;
-  }
 }

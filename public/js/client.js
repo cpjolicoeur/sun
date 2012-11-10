@@ -34,15 +34,17 @@ window.onload = function(){
 			.attr({ x: 300, y: 150, w: 10, h: 10,
 					dX: Crafty.math.randomInt(2, 5),
 					dY: Crafty.math.randomInt(2, 5) })
-			.leftControls(1)
-			// .bind('EnterFrame', function () {
-			// 	//hit floor or roof
-			// 	if (this.y <= 0 || this.y >= 326) this.dY *= -1;
-			// 	if(this.x <= 0 || this.x >= 390) this.dX *= -1;
+			.leftControls(2)
+			.bind('EnterFrame', function () {
+				//hit floor or roof
+				if (this.y <= 0) this.y++;
+				if (this.y >= 326) this.y--;
+				if (this.x <= 0) this.x++;
+				if (this.x >= 390) this.x--;
 
-			// 	this.x += this.dX;
-			// 	this.y += this.dY;
-			// })
+				// this.x += this.dX;
+				// this.y += this.dY;
+			})
 
 
 	});

@@ -1,0 +1,17 @@
+{
+    "relative": true,
+    "groups": [
+        {
+            "uglify": true,
+            "inline": false,
+            "debug": false,
+            "namespace": "NW.templates",
+            "window": false,
+            "source": "/templates/",
+            "output": "/public/js/templates.js",
+            "templates": [
+                "sync_with_phone"
+            ]
+        }
+    ]
+}

@@ -1,4 +1,5 @@
 !(function() {
+  window.NW = window.NW || {};
   NW.controller = new Controller();
   NW.socket = io.connect('http://localhost');
   NW.cs = {}; // cached selectors

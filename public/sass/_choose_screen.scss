@@ -1,0 +1,17 @@
+#mode_toggle {
+  text-align: center;
+  .btn {
+    font-weight: bold;
+    background-size: 20px !important;
+    padding-left: 40px;
+    text-align: left;
+    width: 110px;
+    &.controller {
+      border-right: solid 1px #000;
+      background: #57C757 url('images/compass.png') 10px center no-repeat;
+    }
+    &.screen {
+      background: #57A8C7 url('images/eye.png') 10px center no-repeat;
+    }
+  }
+}

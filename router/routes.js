@@ -34,7 +34,7 @@ var setRoutes = function(server, models, app, sio) {
     console.log("new socket connection");
 
     // Listen for new game/new token requests
-    socket.on('new_game', function(data) {
+    socket.on("new_game", function(data) {
       console.log("new_game", data);
       GameController.createGame(function(err, game) {
         if (err) {
@@ -43,12 +43,15 @@ var setRoutes = function(server, models, app, sio) {
         } else {
           console.log("game created", game);
           socket.join(game.uuid);
-          socket.emit("new_game:success", {token: game.token});
+          socket.set("game_uuid", game.uuid, function() {
+            socket.emit("new_game:success", {token: game.token});
+          });
         }
       });
     });
 
-    socket.on('join_game', function(data) {
+    // Listen for join game requests
+    socket.on("join_game", function(data) {
       console.log("join_game request", data);
       GameController.joinGame(data.token, socket.id, function(err, game) {
         if (err) {
@@ -56,8 +59,20 @@ var setRoutes = function(server, models, app, sio) {
           socket.emit("join_game:error", {error: err});
         } else {
           console.log("game joined", game);
-          socket.emit("join_game:success", {game: game});
+          socket.join(game.uuid);
+          socket.set("game_uuid", game.uuid, function() {
+            socket.emit("join_game:success", {game: game});
+          });
         }
+      });
+    });
+
+    // Listen for controller orientation changes
+    socket.on("orient_change", function(data) {
+      console.log("orient_change", data);
+      socket.get("game_uuid", function(err, uuid) {
+        console.log("** broadcast to **", uuid);
+        socket.broadcast.to(uuid).volatile.emit("orient_change", data);
       });
     });
 

@@ -1,7 +1,5 @@
 var express       = require("express");
 var database      = require("./db/db_interface");
-var passport      = require("passport");
-var LocalStrategy = require("passport-local").Strategy;
 var app           = express();
 var http          = require("http");
 var webServer     = http.createServer(app);
@@ -13,39 +11,8 @@ app.configure(function() {
   app.use(express.bodyParser());
   app.use(express.cookieParser(process.env.COOKIE_SECRET || "zip zap foo"));
   app.use(express.session({'cookie':{'maxAge':604800000}, 'secret': process.env.COOKIE_SECRET || "zip zap foo"}));
-  app.use(passport.initialize());
-  app.use(passport.session());
   app.set("view engine", "jade");
 });
-
-/*
- * Passport session setup
- */
-passport.serializeUser(function(user, done) {
-  done(null, user.username);
-});
-
-passport.deserializeUser(function(username, done) {
-  UserController.getUser(username, function(err, users) {
-    if (!err && users.length) {
-      return done(err, users[0]);
-    } else {
-      return done(err, null);
-    }
-  });
-});
-
-passport.use(new LocalStrategy(function(username, password, done) {
-  UserController.loginUser(username, password, function(err, user) {
-    if (err) {
-      return done(null, false, {'message': err});
-    }
-    if (!user) {
-      return done(null, false, {'message': 'Invalid Login'});
-    }
-    return done(null, user);
-  });
-}));
 
 /*
  * Database setup & App Routing

@@ -1,5 +1,5 @@
 var express       = require("express");
-var database      = require("./db/db_interface");
+var database      = require("./db/db");
 var app           = express();
 var http          = require("http");
 var webServer     = http.createServer(app);
@@ -14,17 +14,10 @@ app.configure(function() {
   app.set("view engine", "jade");
 });
 
-/*
- * Database setup & App Routing
- */
-var db = null;
-if (process.env.NODE_ENV === "production") {
-  db = process.env.MONGO_DB;
-}
 
-database.connect(db, function(models) {
+
+database.connect(function(models) {
   require("./router/routes").set(webServer, models, app, sio);
-
   var port = process.env.PORT || 9999;
   webServer.listen(port);
   console.log("Started server on port:".green, port);

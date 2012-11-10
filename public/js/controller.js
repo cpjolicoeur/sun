@@ -17,13 +17,33 @@
 
     // returns if the current device supports orientation changes and device motion
     function supported() {
-      return !!(window.DeviceMotionEvent);
+      return !!(window.DeviceMotionEvent) || !!(window.DeviceOrientationEvent);
     }
 
     function onMotionChange(e) {
       lastMotion = normalizeAcceleration(e.accelerationIncludingGravity);
       settings.debug && outputDebug();
       settings.changeCallback && settings.changeCallback(lastMotion);
+    }
+
+    function onOrientationChange(e) {
+      lastMotion = normalizeOrientationChange(e);
+      settings.debug && outputDebug();
+      settings.changeCallback && settings.changeCallback(lastMotion);
+    }
+
+    function normalizeOrientationChange(e) {
+      if (e.alpha) {
+        if (window.orientation == 90) {
+          return {x: -1 * e.beta, z: e.gamma, orientation: window.orientation}
+        } else if (window.orientation == 0) {
+          return {x: -1 * e.gamma, z: e.beta, orientation: window.orientation}
+        } else {
+          return {x: e.beta, z: e.gamma, orientation: window.orientation}
+        }
+      } else {
+        return {x: -1 * e.gamma, z: e.beta, orientation: 0}
+      }
     }
 
     function outputDebug() {
@@ -50,17 +70,22 @@
     // so it maps to left and right
     // -- this is basically emulating a steering wheel --
     function normalizeAcceleration(acceleration) {
-      var flipAcceleration = (window.orientation == 90 || window.orientation == 180) ? 1 : -1;
-      var xDirection = (window.orientation == 0 || window.orientation == 180) ? acceleration.x : acceleration.y;
+      var isVertical = (window.orientation == 0 || window.orientation == 180);
       return {
-        x: xDirection * flipAcceleration,
+        x: (isVertical ? window.orientation ? acceleration.x : acceleration.x * -1 : window.orientation == -90 ? acceleration.y * -1 : acceleration.y),
         z: acceleration.z * -1,
         orientation: window.orientation
       }
     }
 
     (function init() {
-      supported && window.addEventListener("devicemotion", onMotionChange);
+      if (supported) {
+        if (!!(window.DeviceMotionEvent)) {
+          window.addEventListener("devicemotion", onMotionChange);
+        } else if (!!(window.DeviceOrientationEvent)) {
+          window.addEventListener("deviceorientation", onOrientationChange);
+        }
+      }
     }())
 
     return {

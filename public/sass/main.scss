@@ -9,6 +9,16 @@ html {
   font-family: arial;
 }
 
+#errors {
+  padding: 10px;
+  background: #A84141;
+  border: solid 1px #A00;
+  text-transform: uppercase;
+  font-size: 11px;
+  margin-bottom: 10px;
+  display: none;
+}
+
 #wrap {
   padding-top: $spacing_block;
   max-width: 1000px;

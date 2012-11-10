@@ -1,9 +1,16 @@
 !(function() {
+  NW.controller = new Controller();
   $(init);
 
-
   function init() {
-    // this only if it is mobile
-    $('#hold').append(NW.templates.sync_with_phone());
+    chooseSplashScreen();
+  }
+
+  function chooseSplashScreen() {
+    if (NW.controller.supported) {
+      $('#hold').append(NW.templates.sync_with_phone());
+    } else {
+      $('#hold').append(NW.templates.sync_with_desktop());
+    }
   }
 })();

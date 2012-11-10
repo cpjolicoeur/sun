@@ -50,10 +50,13 @@ var setRoutes = function(server, models, app, sio) {
 
     socket.on('join_game', function(data) {
       console.log("join_game request", data);
-      GameController.joinGame(data.token, function(err, game) {
+      GameController.joinGame(data.token, socket.id, function(err, game) {
         if (err) {
           console.log("error joining game", err);
           socket.emit("join_game:error", {error: err});
+        } else {
+          console.log("game joined", game);
+          socket.emit("join_game:success", {game: game});
         }
       });
     });

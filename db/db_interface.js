@@ -2,11 +2,12 @@ var mongoose  = require('mongoose');
 var Schema    = mongoose.Schema;
 
 var UserModel = new Schema({
-  username: {type: String, required: true, trim: true},
-  password: {type: String, required: true},
-  salt: {type: String, required: true},
-  token: String,
-  email: String
+  username: {type: String, trim: true},
+  password: {type: String},
+  salt: {type: String},
+  token: {type: String},
+  email: {type: String},
+  sessionId: {type: String}
 });
 
 var GameModel = new Schema({

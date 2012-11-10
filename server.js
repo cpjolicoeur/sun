@@ -6,7 +6,7 @@ var app           = express();
 var http          = require("http");
 var webServer     = http.createServer(app);
 var colors        = require("colors");
-var io            = require("socket.io");
+var sio           = require("socket.io").listen(webServer, {log: false});
 
 app.configure(function() {
   app.use(express.static(__dirname+"/public"));
@@ -56,7 +56,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 database.connect(db, function(models) {
-  require("./router/routes").set(webServer, models, app);
+  require("./router/routes").set(webServer, models, app, sio);
 
   var port = process.env.PORT || 9999;
   webServer.listen(port);

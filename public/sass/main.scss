@@ -1,3 +1,5 @@
+$spacing_block: 10px;
+
 @import "compass";
 @import "compass/reset";
 @import "choose_screen";
@@ -5,7 +7,6 @@
 @import "controller";
 @import "fonts";
 
-$spacing_block: 10px;
 
 html {
   background: #1D1D1D;

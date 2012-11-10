@@ -1,0 +1,17 @@
+#controller_calibrate {
+  $orange: orange;
+  b {
+    font-weight: bold;
+    color: $orange;
+  }
+  p {
+    margin-bottom: $spacing_block * 2;
+  }
+  .to_follow {
+    width: 300px;
+    margin: 0px auto;
+    height: 150px;
+    background: $orange;
+    margin-top: 100px;
+  }
+}

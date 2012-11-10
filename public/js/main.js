@@ -19,21 +19,14 @@
 
   function chooseSplashScreen() {
     if (NW.controller.supported) {
-      NW.$('#hold').append(NW.templates.choose_mode());
+      NW.$('#hold').html(NW.templates.choose_mode());
     } else {
-      renderScreen();
+      NW.screen_view.init();
     }
   }
 
   NW.createNewGame = function() {
     NW.socket.emit("new_game");
-  }
-
-  NW.enterGameHandler = function() {
-    $(".play", NW.$('#sync_with_phone')).on("click", function() {
-      var token = NW.$('#game_token').val();
-      NW.socket.emit("join_game", {'token': token});
-    });
   }
 
   function controllerOrientChange(data) {

@@ -19,12 +19,12 @@ var getUser = function(username, cb) {
 };
 
 var getUserByToken = function(userToken, cb) {
-  return models.User.find({
+  return models.User.findOne({
     token: userToken
-  }, function(err, users) {
+  }, function(err, user) {
     if (err) { return cb(err, false); }
     else {
-      if (users.length) { return cb(err, users[0]); }
+      if (user) { return cb(err, user); }
       else { cb('User Not Found', false); }
     }
   });

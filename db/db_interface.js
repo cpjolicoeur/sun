@@ -2,21 +2,17 @@ var mongoose  = require('mongoose');
 var Schema    = mongoose.Schema;
 
 var UserModel = new Schema({
-  username: {type: String, trim: true},
-  password: {type: String},
-  salt: {type: String},
-  token: {type: String},
-  email: {type: String},
-  sessionId: {type: String}
+  sessionId: {type: String},
+  token: {type: String}
 });
 
 var GameModel = new Schema({
   // need a game id or token
   users: [UserModel],
+  size: {type: Number, default: 0},
   level: {type: Number, default: 0},
   score: {type: Number, default: 0},
   uuid: {type: String, required: true},
-  token: {type: String, required: true}
 });
 
 var connect = function(db, cb) {

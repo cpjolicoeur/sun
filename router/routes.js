@@ -34,13 +34,17 @@ var setRoutes = function(server, models, app, sio) {
 
     // Listen for new game/new token requests
     socket.on("new_game", function(data) {
-      GameController.createGame(function(err, game) {
+      GameController.getOpenGame(function(err, game) {
         if (err) {
           socket.emit("new_game:error", {error: err});
         } else {
-          socket.join(game.uuid);
-          socket.set("game_uuid", game.uuid, function() {
-            socket.emit("new_game:success", {token: game.token});
+          GameController.requestToken(function(err, token) {
+            if (err) {
+              socket.emit("new_game:error", {error: err});
+            } else {
+              socket.join(game.uuid);
+              socket.emit("new_game:success", {token: token});
+            }
           });
         }
       });

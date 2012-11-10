@@ -61,7 +61,8 @@ var setRoutes = function(server, models, app, sio) {
           console.log("game joined", game);
           socket.join(game.uuid);
           socket.set("game_uuid", game.uuid, function() {
-            socket.emit("join_game:success", {game: game});
+            // tell everyone in the game that the game has been joined
+            sio.sockets.in(game.uuid).emit("join_game:success", {game: game});
           });
         }
       });
@@ -71,7 +72,8 @@ var setRoutes = function(server, models, app, sio) {
     socket.on("orient_change", function(data) {
       console.log("orient_change", data);
       socket.get("game_uuid", function(err, uuid) {
-        console.log("** broadcast to **", uuid);
+        // console.log("** broadcast to **", uuid);
+        // tell everyone *else* in the game that the orient changed
         socket.broadcast.to(uuid).volatile.emit("orient_change", data);
       });
     });

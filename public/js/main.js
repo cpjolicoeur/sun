@@ -43,7 +43,7 @@
 
     NW.socket.on("new_game:error", function(data) {
       console.log("new_game error", data);
-      alert("problem creating game\n\n"+data.error);
+      NW.error("problem creating game\n\n"+data.error);
     });
 
     NW.socket.on("join_game:success", function(data) {
@@ -53,7 +53,7 @@
 
     NW.socket.on("join_game:error", function(data) {
       console.log("join_game error", data);
-      alert("problem joining game\n\n"+ data.error);
+      NW.error("problem joining game\n\n"+ data.error);
     });
   }
 })();

@@ -1,0 +1,62 @@
+/*
+Syntax error: File to import not found or unreadable: client.
+              Load paths:
+                /Users/Will/Projects/narwhals
+                /Users/Will/Projects/narwhals/public/sass
+                /Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/blueprint/stylesheets
+                /Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets
+                Compass::SpriteImporter
+                /Users/Will/Projects/narwhals
+        on line 6 of ./public/sass/main.scss
+
+1: @import "compass";
+2: @import "compass/reset";
+3: @import "choose_screen";
+4: @import "screen";
+5: @import "controller";
+6: @import "client";
+7: @import "fonts";
+8: 
+9: $spacing_block: 10px;
+10: 
+11: html {
+
+Backtrace:
+./public/sass/main.scss:6
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/import_node.rb:64:in `rescue in import'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/import_node.rb:42:in `import'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/import_node.rb:25:in `imported_file'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/visitors/perform.rb:227:in `rescue in visit_import'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/visitors/perform.rb:232:in `visit_import'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/visitors/base.rb:37:in `visit'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/visitors/perform.rb:98:in `visit'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/visitors/base.rb:53:in `block in visit_children'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/visitors/base.rb:53:in `map'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/visitors/base.rb:53:in `visit_children'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/visitors/perform.rb:107:in `block in visit_children'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/visitors/perform.rb:119:in `with_environment'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/visitors/perform.rb:106:in `visit_children'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/visitors/base.rb:37:in `block in visit'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/visitors/perform.rb:126:in `visit_root'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/visitors/base.rb:37:in `visit'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/visitors/perform.rb:98:in `visit'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/visitors/perform.rb:7:in `visit'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/tree/root_node.rb:20:in `render'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/engine.rb:315:in `_render'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/engine.rb:262:in `render'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/plugin/compiler.rb:340:in `update_stylesheet'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/plugin/compiler.rb:202:in `block in update_stylesheets'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/plugin/compiler.rb:200:in `each'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/plugin/compiler.rb:200:in `update_stylesheets'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/lib/sass/plugin/compiler.rb:298:in `block in watch'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/vendor/listen/lib/listen/multi_listener.rb:86:in `call'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/vendor/listen/lib/listen/multi_listener.rb:86:in `on_change'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/vendor/listen/lib/listen/multi_listener.rb:95:in `block in initialize_adapter'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/vendor/listen/lib/listen/adapters/polling.rb:55:in `call'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/vendor/listen/lib/listen/adapters/polling.rb:55:in `poll'
+/Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/sass-3.2.1/vendor/listen/lib/listen/adapters/polling.rb:31:in `block in start'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: File to import not found or unreadable: client.\A               Load paths:\A                 /Users/Will/Projects/narwhals\A                 /Users/Will/Projects/narwhals/public/sass\A                 /Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/blueprint/stylesheets\A                 /Users/Will/.rvm/gems/ruby-1.9.3-p194/gems/compass-0.12.2/frameworks/compass/stylesheets\A                 Compass::SpriteImporter\A                 /Users/Will/Projects/narwhals\A         on line 6 of ./public/sass/main.scss\A \A 1: @import \"compass\";\A 2: @import \"compass/reset\";\A 3: @import \"choose_screen\";\A 4: @import \"screen\";\A 5: @import \"controller\";\A 6: @import \"client\";\A 7: @import \"fonts\";\A 8: \A 9: $spacing_block: 10px;\A 10: \A 11: html {"; }

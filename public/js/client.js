@@ -2,7 +2,7 @@
   window.NW = window.NW || {};
 
   window.NW.game = function() {
-    Crafty.init(400,336)
+    Crafty.init(800,600)
     Crafty.canvas.init()
     //automatically play the loading scene
     Crafty.scene("loading");
@@ -14,8 +14,17 @@
     //load takes an array of assets and a callback when complete
 
     //black background with some loading text
-    Crafty.background("#aaa");
-    Crafty.e("2D, DOM, Text").attr({ w: 100, h: 20, x: 150, y: 120 })
+
+		//turn the sprite map into usable components
+		Crafty.sprite(28, "../images/ships.png", {
+		    ship: [0, 0]
+		});
+		Crafty.sprite(1, "../images/suns.png", {
+			sun: [95,0,200,150]
+		})
+
+    Crafty.background("#000");
+    Crafty.e("2D, Canvas, Text").attr({ w: 100, h: 20, x: 150, y: 120 })
       .text("Loading");
     Crafty.scene("main")
 
@@ -31,8 +40,8 @@
   Crafty.c("bullet0",{
     init: function(){
       this.requires("2D, Canvas, Color")
-        .color('rgb(0,0,0)')
-        .attr({ h: 4, w: 4 });
+        .color('#fff')
+        .attr({ h: 2, w: 2 });
     }
   })
 
@@ -148,12 +157,9 @@
     Crafty.c("Ship",{
 
       init: function(){
-        this.requires("2D, Canvas, Color, Collision")
-          .color("rgb(0,255,0)")
+        this.requires("2D, Canvas, Collision, ship")
           .onHit("Enemy",function(){
-            this.color("rgb(255,0,0)")
           },function(){
-            this.color("rgb(0,255,0)")
           })
       }
 
@@ -161,7 +167,7 @@
 
 
     NW.player = Crafty.e("Ship, Player, Shooter")
-      .attr({ x: 190, y: 150, w: 20, h: 20 })
+      .attr({ x: 190, y: 150});
 
 
     Crafty.e("Enemy, 2D, Canvas, Color, Collision")
@@ -174,9 +180,11 @@
         this.color('rgb(255,0,0)')
       });
 
-    Crafty.e("Sun, 2D, Canvas, Color, Collision")
-      .color('rgb(255,255,0)')
-      .attr({ x: 125, y: 300, w: 150, h: 40 });
+    sun = Crafty.e("Sun, 2D, Canvas, Collision, sun")
+    sun.attr({
+      	x: (Crafty.viewport.width / 2 - sun._w / 2),
+      	y: (Crafty.viewport.height - sun._h)
+      });
 
   });
 })();

@@ -7,9 +7,11 @@
   $(init);
 
   function init() {
-    chooseSplashScreen();
-    NW.socketListeners();
-    domListeners();
+    // chooseSplashScreen();
+    // NW.socketListeners();
+    // domListeners();
+    NW.$('#hold').html(NW.templates.game_view());
+    NW.game()
   }
 
   function domListeners() {

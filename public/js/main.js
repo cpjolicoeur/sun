@@ -1,26 +1,42 @@
 !(function() {
-  window.NW = window.NW || {};
-  NW.controller = new Controller();
-  NW.socket = io.connect(window.location.origin);
-  NW.$ = {}; // cached selectors
+  window.NW       = window.NW || {};
+  NW.controller   = new Controller();
+  NW.socket       = io.connect(window.location.origin);
+
+  NW.$ = function(selector) {
+    NW.$[selector] == undefined && (NW.$[selector] = $(selector));
+    return NW.$[selector]
+  }
 
   $(init);
 
   function init() {
     chooseSplashScreen();
     socketListeners();
+    setListeners();
   }
 
+  function setListeners() {
+    $('#choose_mode .btn.controller').on('click', renderController);
+    $('#choose_mode .btn.screen').on('click', renderScreen);
+  }
+
+  function renderController() {
+    NW.$('#hold').html(NW.templates.sync_with_desktop());
+    createNewGame();
+  }
+
+  function renderScreen() {
+    NW.$('#hold').html(NW.templates.sync_with_phone());
+    enterGameHandler();
+  }
+
+
   function chooseSplashScreen() {
-    var localhost = window.location.origin.match(/localhost/);
-    if (NW.controller.supported && localhost) {
-      $('#hold').append(NW.templates.sync_with_phone());
-      NW.$['p_sync'] = $("#sync_with_phone");
-      enterGameHandler();
+    if (NW.controller.supported) {
+      NW.$('#hold').append(NW.templates.choose_mode());
     } else {
-      $('#hold').append(NW.templates.sync_with_desktop());
-      NW.$['d_sync'] = $("#sync_with_desktop");
-      createNewGame();
+      renderScreen();
     }
   }
 
@@ -30,15 +46,15 @@
   }
 
   function enterGameHandler() {
-    $(".play", NW.$["p_sync"]).on("click", function(evt) {
-      NW.socket.emit("join_game", {token: $("#game_token", NW.$["p_sync"]).val()});
+    $(".play", NW.$['#sync_with_phone']).on("click", function(evt) {
+      NW.socket.emit("join_game", {token: $("#game_token", NW.$['#sync_with_phone']).val()});
     });
   }
 
   function socketListeners() {
     NW.socket.on("new_game:success", function(data) {
       console.log("new_game created", data);
-      $(".token", NW.$["d_sync"]).html(data.token);
+      $(".token", NW.$['#sync_with_desktop']).html(data.token);
     });
 
     NW.socket.on("new_game:error", function(data) {

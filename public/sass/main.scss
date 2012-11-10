@@ -44,9 +44,23 @@ html {
   padding-left: $spacing_block;
 }
 
+.toggle {
+  .btn {
+    font-weight: bold;
+    &.first {
+      border-right: solid 1px #000;
+    }
+  }
+}
 .btn {
   display: inline-block;
   padding: $spacing_block;
   background: #57C757;
   cursor: pointer;
+  &.first {
+    background: #5DC9BC;
+  }
+  &.second {
+    background: #827CAC;
+  }
 }

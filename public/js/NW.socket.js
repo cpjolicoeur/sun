@@ -17,8 +17,7 @@
     });
 
     NW.socket.on("join_game:success", function(data) {
-      console.log("game joined", data);
-      $("body").append("<h3>game joined</h3>");
+      $(window).trigger("NK:join_game:success");
       NW.inGame = true;
     });
 

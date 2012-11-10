@@ -12,7 +12,8 @@
             "templates": [
                 "enter_token",
                 "give_token",
-                "choose_mode"
+                "choose_mode",
+                "controller_view"
             ]
         }
     ]

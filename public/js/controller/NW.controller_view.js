@@ -3,16 +3,18 @@
 
   function init() {
     NW.$('#hold').html(NW.templates.enter_token());
+    NW.$("#sync_with_phone"); // cache our template selector
+    $("#game_token", NW.$("#sync_with_phone")).focus();
     setDomListeners();
   }
 
   function setDomListeners() {
-    NW.$('#sync_with_phone .play').on('click', joinGame);
+    $(".play", NW.$("#sync_with_phone")).on('click', joinGame);
     $(window).on('NK:join_game:success', showController);
   }
 
   function joinGame() {
-    var token = NW.$('#game_token').val();
+    var token = $("#game_token", NW.$("#sync_with_phone")).val();
     NW.socket.emit("join_game", {'token': token});
   }
 

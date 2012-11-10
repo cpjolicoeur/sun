@@ -2,7 +2,7 @@
   window.NW       = window.NW || {};
 
   function init() {
-    NW.$('#hold').html(NW.templates.sync_with_desktop());
+    NW.$('#hold').html(NW.templates.give_token());
     NW.createNewGame();
   }
 

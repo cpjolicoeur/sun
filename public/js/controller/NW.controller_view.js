@@ -2,7 +2,7 @@
   window.NW       = window.NW || {};
 
   function init() {
-    NW.$('#hold').html(NW.templates.sync_with_phone());
+    NW.$('#hold').html(NW.templates.enter_token());
     NW.enterGameHandler();
   }
 

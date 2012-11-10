@@ -29,7 +29,9 @@
     });
 
     NW.socket.on("orient_change", function(data) {
-      NW.error("orient_change - x: "+data.x);
+      var t = new Date().getTime();
+      var latency = t - data.ts;
+      NW.error("orient_change - latency: "+latency+", x: "+data.controller.x);
     });
   }
 })();

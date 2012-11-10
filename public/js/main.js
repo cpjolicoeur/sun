@@ -39,7 +39,7 @@
   function controllerOrientChange(data) {
     if (NW.inGame) {
       NW.error("sending socket volatile: "+data.x);
-      NW.socket.emit("orient_change", data);
+      NW.socket.emit("orient_change", {controller: data, ts: new Date().getTime()});
     }
   }
 })();

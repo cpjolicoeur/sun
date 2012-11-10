@@ -16,7 +16,7 @@
     //black background with some loading text
 
 		//turn the sprite map into usable components
-		Crafty.sprite(28, "../images/ships.png", {
+		Crafty.sprite(28, window.NW.generator(), {
 		    ship: [0, 3]
 		});
 		Crafty.sprite(1, "../images/suns.png", {

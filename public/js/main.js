@@ -1,5 +1,7 @@
 !(function() {
   NW.controller = new Controller();
+  NW.socket = io.connect('http://localhost');
+
   $(init);
 
   function init() {

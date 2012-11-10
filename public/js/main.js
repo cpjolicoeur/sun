@@ -1,6 +1,6 @@
 !(function() {
   window.NW       = window.NW || {};
-  NW.controller   = new Controller({debug: true, changeCallback: controllerOrientChange});
+  NW.controller   = new Controller({debug: false, changeCallback: controllerOrientChange});
   NW.socket       = io.connect(window.location.origin);
   NW.inGame       = false;
 

@@ -75,12 +75,6 @@ var setRoutes = function(server, models, app, sio) {
         socket.broadcast.to(uuid).volatile.emit("orient_change", data);
       });
     });
-
-    // TODO: join this socket to their "game room"
-    // socket.join('_ROOM_ID_');
-    // socket.broadcast.to('_ROOM_ID_').volatile.emit('foobar');
-    // * or *
-    // sio.sockets.in('_ROOM_ID_').volatile.emit('foobar');
   });
 };
 

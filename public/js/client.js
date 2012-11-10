@@ -17,7 +17,7 @@
 
 		//turn the sprite map into usable components
 		Crafty.sprite(28, "../images/ships.png", {
-		    ship: [0, 0]
+		    ship: [0, 3]
 		});
 		Crafty.sprite(1, "../images/suns.png", {
 			sun: [95,0,200,150]

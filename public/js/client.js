@@ -129,10 +129,18 @@
           if(e.frame % 5 == 0 && this.shooting){
             this.shoot()
           }
+        })
+        .bind("NW:PlayerMoved", function(data) {
+          // console.log("NW:PlayerMoved - client", data);
+          // x < 0 is right, x > 0 is left
+          var from = {x: this.x, y: this.y};
+          this.x = (data.x < 0) ? (this.x + this.movementSpeed) : (this.x - this.movementSpeed)
+          this.trigger("Moved", from);
         });
       }
 
     })
+
 
     Crafty.c("Ship",{
 
@@ -149,7 +157,7 @@
     })
 
 
-    Crafty.e("Ship, Player, Shooter")
+    NW.player = Crafty.e("Ship, Player, Shooter")
       .attr({ x: 190, y: 150, w: 20, h: 20 })
 
 

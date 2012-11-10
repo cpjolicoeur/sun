@@ -30,6 +30,7 @@
       var t = new Date().getTime();
       var latency = t - data.ts;
       NW.error("orient_change - latency: "+latency+", x: "+data.controller.x);
+      NW.player.trigger("NW:PlayerMoved", data.controller);
     });
   }
 })();

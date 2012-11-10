@@ -1,6 +1,6 @@
 {
   "name": "nko3-narwhals",
-  "version": "0.0.1",
+  "version": "0.0.1-2",
   "description": "Node Knockout 2012 entry",
   "main": "server.js",
   "license": "RESTRICTED",
@@ -18,10 +18,18 @@
     "node": "0.8.x"
   },
   "contributors": [
-    {"name": "Sam Saccone"},
-    {"name": "Craig P Jolicoeur"},
-    {"name": "Will Farrell"},
-    {"name": "David Dufresne"}
+    {
+      "name": "Sam Saccone"
+    },
+    {
+      "name": "Craig P Jolicoeur"
+    },
+    {
+      "name": "Will Farrell"
+    },
+    {
+      "name": "David Dufresne"
+    }
   ],
   "dependencies": {
     "express": "3.0.2",

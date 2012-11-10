@@ -22,21 +22,130 @@ window.onload = function(){
 		// enemy
 		// sun
 
-		var speed = 2
-		Crafty.e("Player, 2D, Canvas, Color, Multiway, Collision")
-			.color('rgb(0,255,0)')
-			.attr({ x: 190, y: 150, w: 20, h: 20 })
-			.multiway(speed, {UP_ARROW: -90, DOWN_ARROW: 90, RIGHT_ARROW: 0, LEFT_ARROW: 180})
-			.bind('EnterFrame', function () {
-				//hit sides
-				if (this.y <= 0){ this.y += speed; this.color('rgb(255,0,0)'); }
-				if (this.y >= 326){ this.y -= speed; this.color('rgb(255,0,0)'); }
-				if (this.x <= 0){ this.x += speed; this.color('rgb(255,0,0)'); }
-				if (this.x >= 390){ this.x -= speed; this.color('rgb(255,0,0)'); }
-			})
-			.onHit("Enemy",function(){
-				this.color('rgb(255,0,0)')
+	Crafty.c("bullet0",{
+		init: function(){
+			this.requires("2D, Canvas, Color")
+				.color('rgb(0,0,0)')
+				.attr({ h: 4, w: 4 });
+		}
+	})
+
+	Crafty.c("Bullet", {
+		init: function(){
+			this.requires("Collision")
+				.bind("EnterFrame",function(){
+          if(this.x > Crafty.viewport.width+this.w ||
+              this.x < -this.w ||
+              this.y < -this.h ||
+              this.y > Crafty.viewport.height+this.h){
+              this.destroy();
+          }
+				})
+				.onHit("Bullet",function(e){
+					this.destroy();
+					e[0].obj.destroy();
+				})
+				.onHit("Enemy",function(e){
+					this.destroy();
+					e[0].obj.destroy();
+				})
+		}
+	})
+
+	Crafty.c("Weapon",{
+		init: function(){
+			this.requires("Bullet, bullet0")
+				.origin("center")
+				.bind("EnterFrame",function(){
+					this.x += this.dx;
+					this.y += this.dy;
+				})
+		}
+	})
+
+	Crafty.c("Shooter",{
+
+		shooting: false,
+
+		init: function(){
+			this.bind("EnterFrame",function(e){
+				if(e.frame % 5 === 0 && this.shooting) this.shoot;
 			});
+		},
+
+		shoot: function(){
+			var weapon = Crafty.e("Weapon")
+			weapon.attr({
+				x: this._x + this._w / 2 - weapon._w / 2,
+				y: this._y + this._h / 2 - weapon._h / 2,
+				rotation: this._rotation,
+        dx: 20 * Math.sin(this._rotation / (180 / Math.PI)),
+        dy: 20 * Math.cos(this._rotation / (180 / Math.PI))
+			})
+		}
+
+	})
+
+
+		Crafty.c("Player",{
+
+			movementSpeed: 5,
+
+			init: function(){
+
+				this.requires("Multiway")
+					.multiway(this.movementSpeed,{
+						UP_ARROW: -90,
+						DOWN_ARROW: 90,
+						RIGHT_ARROW: 0,
+						LEFT_ARROW: 180
+					})
+				.bind("Moved",function(from){
+				// keep on screen
+					if(this.x + this.w > Crafty.viewport.width ||
+							this.x + this.w < this.w ||
+							this.y + this.h > Crafty.viewport.height ||
+							this.y + this.h < this.h){
+						this.attr({ x: from.x, y: from.y });
+					}
+				})
+        .bind("KeyDown", function(e) {
+            if(e.keyCode === Crafty.keys.SPACE){
+                this.shooting = true;
+            }
+        })
+        .bind("KeyUp", function(e) {
+            if(e.keyCode === Crafty.keys.SPACE){
+                this.shooting = false;
+            }
+        })
+        .bind("EnterFrame", function(e){
+        	if(e.frame % 5 == 0 && this.shooting){
+        		this.shoot()
+        	}
+        });
+			}
+
+		})
+
+		Crafty.c("Ship",{
+
+			init: function(){
+				this.requires("2D, Canvas, Color, Collision")
+					.color("rgb(0,255,0)")
+					.onHit("Enemy",function(){
+						this.color("rgb(255,0,0)")
+					},function(){
+						this.color("rgb(0,255,0)")
+					})
+			}
+
+		})
+
+
+		Crafty.e("Ship, Player, Shooter")
+			.attr({ x: 190, y: 150, w: 20, h: 20 })
+
 
 		Crafty.e("Enemy, 2D, Canvas, Color, Collision")
 			.color('rgb(0,0,255)')
@@ -49,7 +158,7 @@ window.onload = function(){
 			});
 
 		Crafty.e("Sun, 2D, Canvas, Color, Collision")
-			.color('#FE0')
+			.color('rgb(255,255,0)')
 			.attr({ x: 125, y: 300, w: 150, h: 40 });
 
 	});

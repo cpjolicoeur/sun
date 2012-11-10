@@ -46,75 +46,76 @@
               this.y > Crafty.viewport.height+this.h){
               this.destroy();
           }
-        })
-        .onHit("Bullet",function(e){
-          this.destroy();
-          e[0].obj.destroy();
-        })
-        .onHit("Enemy",function(e){
-          this.destroy();
-          e[0].obj.destroy();
-        })
-    }
-  })
+				})
+				.onHit("Bullet",function(e){
+					this.destroy();
+					e[0].obj.destroy();
+				})
+				.onHit("Enemy",function(e){
+					this.destroy();
+					e[0].obj.destroy();
+				})
+		}
+	})
 
-  Crafty.c("Weapon",{
-    init: function(){
-      this.requires("Bullet, bullet0")
-        .origin("center")
-        .bind("EnterFrame",function(){
-          this.x += this.dx;
-          this.y += this.dy;
-        })
-    }
-  })
+	Crafty.c("Weapon",{
+		init: function(){
+			this.requires("Bullet, bullet0")
+				.origin("center")
+				.bind("EnterFrame",function(){
+					this.x += this.dx;
+					this.y += this.dy;
+				})
+		}
+	})
 
-  Crafty.c("Shooter",{
+	Crafty.c("Shooter",{
 
-    shooting: false,
+		shooting: false,
 
-    init: function(){
-      this.bind("EnterFrame",function(e){
-        if(e.frame % 5 === 0 && this.shooting) this.shoot;
-      });
-    },
+		init: function(){
+			this.bind("EnterFrame",function(e){
+				if(e.frame % 5 === 0 && this.shooting) this.shoot;
+			});
+		},
 
-    shoot: function(){
-      var weapon = Crafty.e("Weapon")
-      weapon.attr({
-        x: this._x + this._w / 2 - weapon._w / 2,
-        y: this._y + this._h / 2 - weapon._h / 2,
-        rotation: this._rotation,
-        dx: 20 * Math.sin(this._rotation / (180 / Math.PI)),
-        dy: 20 * Math.cos(this._rotation / (180 / Math.PI))
-      })
-    }
+		shoot: function(){
+			var weapon = Crafty.e("Weapon")
+			console.log(this._rotation)
+			weapon.attr({
+				x: this._x + this._w / 2 - weapon._w / 2,
+				y: this._y + this._h / 2 - weapon._h / 2,
+				rotation: this._rotation + 180,
+        dx: 20 * Math.sin((this._rotation+180) / (180 / Math.PI)),
+        dy: 20 * Math.cos((this._rotation+180) / (180 / Math.PI))
+			})
+		}
 
-  })
+	})
 
 
-    Crafty.c("Player",{
+		Crafty.c("Player",{
 
-      movementSpeed: 5,
+			movementSpeed: 5,
 
-      init: function(){
+			init: function(){
 
-        this.requires("Multiway")
-          .multiway(this.movementSpeed,{
-            UP_ARROW: -90,
-            DOWN_ARROW: 90,
-            RIGHT_ARROW: 0,
-            LEFT_ARROW: 180
-          })
-        .bind("Moved",function(from){
-        // keep on screen
-          if(this.x + this.w > Crafty.viewport.width ||
-              this.x + this.w < this.w ||
-              this.y + this.h > Crafty.viewport.height ||
-              this.y + this.h < this.h){
-            this.attr({ x: from.x, y: from.y });
-          }
-        })
+				this.requires("Multiway")
+					.multiway(this.movementSpeed,{
+						UP_ARROW: -90,
+						DOWN_ARROW: 90,
+						RIGHT_ARROW: 0,
+						LEFT_ARROW: 180
+					})
+				.bind("Moved",function(from){
+				// keep on screen
+					if(this.x + this.w > Crafty.viewport.width ||
+							this.x + this.w < this.w ||
+							this.y + this.h > Crafty.viewport.height ||
+							this.y + this.h < this.h){
+						this.attr({ x: from.x, y: from.y });
+					}
+				})
         .bind("KeyDown", function(e) {
             if(e.keyCode === Crafty.keys.SPACE){
                 this.shooting = true;

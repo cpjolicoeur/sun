@@ -1,6 +1,7 @@
 @import "compass";
 @import "compass/reset";
 @import "choose_screen";
+@import "fonts";
 
 $spacing_block: 10px;
 
@@ -27,8 +28,9 @@ html {
   margin: 0px auto;
   h3 {
     font-weight: bold;
-    font-size: 120%;
-    margin-bottom: $spacing_block;
+    font-size: 30px;
+    margin-bottom: $spacing_block * 2;
+    @extend %maven_pro;
   }
   h5.value {
     color: #71C97F;
@@ -47,8 +49,10 @@ html {
 
 
 .btn {
+  @extend %maven_pro;
   display: inline-block;
   padding: $spacing_block;
   background: #57C757;
   cursor: pointer;
+  text-transform: uppercase;
 }

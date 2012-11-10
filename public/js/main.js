@@ -29,6 +29,8 @@
     if (NW.inGame) {
       NW.error("sending socket volatile: "+data.x);
       NW.socket.emit("orient_change", {controller: data, ts: new Date().getTime()});
+    } else if (NW.controllerCalibrationMode) {
+      NW.sendControllerCalibrationData(data);
     }
   }
 })();

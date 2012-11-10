@@ -13,6 +13,7 @@
 
   function showGame() {
     NW.$('#hold').html(NW.templates.game_view());
+    NW.game();
   }
 
   function createNewGame() {

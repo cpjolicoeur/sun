@@ -31,23 +31,19 @@
   }
 
   NW.createNewGame = function() {
-    console.log("socket", NW.socket);
     NW.socket.emit("new_game");
   }
 
   NW.enterGameHandler = function() {
-    $(".play", NW.$('#sync_with_phone')).on("click", function(evt) {
-      NW.socket.emit("join_game", {token: $("#game_token", NW.$['#sync_with_phone']).val()});
+    $(".play", NW.$('#sync_with_phone')).on("click", function() {
+      var token = NW.$('#game_token').val();
+      NW.socket.emit("join_game", {'token': token});
     });
   }
 
-  // NW.controllerOrientChange = function(data) {
   function controllerOrientChange(data) {
-    // console.log("orientChange", data);
-    // NW.error("x: "+data.x);
     if (NW.inGame) {
       NW.error("sending socket volatile: "+data.x);
-      // NW.socket.volatile.emit('orient_change', {data: data});
       NW.socket.emit("orient_change", data);
     }
   }

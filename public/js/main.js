@@ -46,7 +46,7 @@
   }
 
   function enterGameHandler() {
-    $(".play", NW.$['#sync_with_phone']).on("click", function(evt) {
+    $(".play", NW.$( '#sync_with_phone' )).on("click", function(evt) {
       NW.socket.emit("join_game", {token: $("#game_token", NW.$['#sync_with_phone']).val()});
     });
   }
@@ -54,7 +54,7 @@
   function socketListeners() {
     NW.socket.on("new_game:success", function(data) {
       console.log("new_game created", data);
-      $(".token", NW.$['#sync_with_desktop']).html(data.token);
+      $(".token", NW.$( '#sync_with_desktop' )).html(data.token);
     });
 
     NW.socket.on("new_game:error", function(data) {

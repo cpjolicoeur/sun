@@ -17,20 +17,9 @@
   }
 
   function setListeners() {
-    $('#choose_mode .btn.controller').on('click', renderController);
-    $('#choose_mode .btn.screen').on('click', renderScreen);
+    $('#choose_mode .btn.controller').on('click', NW.controller_view.init);
+    $('#choose_mode .btn.screen').on('click', NW.screen_view.init);
   }
-
-  function renderController() {
-    NW.$('#hold').html(NW.templates.sync_with_desktop());
-    createNewGame();
-  }
-
-  function renderScreen() {
-    NW.$('#hold').html(NW.templates.sync_with_phone());
-    enterGameHandler();
-  }
-
 
   function chooseSplashScreen() {
     if (NW.controller.supported) {
@@ -40,13 +29,13 @@
     }
   }
 
-  function createNewGame() {
+  NW.createNewGame = function() {
     console.log("socket", NW.socket);
     NW.socket.emit("new_game");
   }
 
-  function enterGameHandler() {
-    $(".play", NW.$( '#sync_with_phone' )).on("click", function(evt) {
+  NW.enterGameHandler = function() {
+    $(".play", NW.$('#sync_with_phone')).on("click", function(evt) {
       NW.socket.emit("join_game", {token: $("#game_token", NW.$['#sync_with_phone']).val()});
     });
   }

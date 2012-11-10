@@ -18,4 +18,24 @@ html {
     font-size: 120%;
     margin-bottom: $spacing_block;
   }
+  h5.value {
+    color: #71C97F;
+    font-size: 30px;
+  }
+}
+
+#game_token {
+  border: none;
+  height: 30px;
+  border-radius: 3px;
+  width: 200px;
+  margin-right: $spacing_block;
+  padding-left: $spacing_block;
+}
+
+.btn {
+  display: inline-block;
+  padding: $spacing_block;
+  background: #57C757;
+  cursor: pointer;
 }

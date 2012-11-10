@@ -20,6 +20,11 @@
 
   function showController(e) {
     NW.$('#hold').html(NW.templates.controller_view());
+    $(".fire", NW.$("#hold")).on('click', fireWeapon);
+  }
+
+  function fireWeapon(e) {
+    NW.socket.emit("player:fire", {});
   }
 
   NW.controller_view = {

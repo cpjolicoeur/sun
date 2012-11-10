@@ -11,7 +11,6 @@
     });
 
     NW.socket.on("new_game:error", function(data) {
-      console.log("new_game error", data);
       NW.error("problem creating game\n\n"+data.error);
     });
 
@@ -21,7 +20,6 @@
     });
 
     NW.socket.on("join_game:error", function(data) {
-      console.log("join_game error", data);
       NW.error("problem joining game\n\n"+ data.error);
       NW.inGame = false;
     });
@@ -31,6 +29,10 @@
       var latency = t - data.ts;
       NW.error("orient_change - latency: "+latency+", x: "+data.controller.x);
       NW.player.trigger("NW:PlayerMoved", data.controller);
+    });
+
+    NW.socket.on("player:fire", function(data) {
+      NW.player.shoot();
     });
   }
 })();

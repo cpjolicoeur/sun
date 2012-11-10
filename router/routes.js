@@ -31,17 +31,13 @@ var setRoutes = function(server, models, app, sio) {
    */
   sio.sockets.on('connection', function(socket) {
     sid = socket.handshake.sessionID;
-    console.log("new socket connection");
 
     // Listen for new game/new token requests
     socket.on("new_game", function(data) {
-      console.log("new_game", data);
       GameController.createGame(function(err, game) {
         if (err) {
-          console.log("error creating game", err);
           socket.emit("new_game:error", {error: err});
         } else {
-          console.log("game created", game);
           socket.join(game.uuid);
           socket.set("game_uuid", game.uuid, function() {
             socket.emit("new_game:success", {token: game.token});
@@ -52,13 +48,10 @@ var setRoutes = function(server, models, app, sio) {
 
     // Listen for join game requests
     socket.on("join_game", function(data) {
-      console.log("join_game request", data);
       GameController.joinGame(data.token, socket.id, function(err, game) {
         if (err) {
-          console.log("error joining game", err);
           socket.emit("join_game:error", {error: err});
         } else {
-          console.log("game joined", game);
           socket.join(game.uuid);
           socket.set("game_uuid", game.uuid, function() {
             // tell everyone in the game that the game has been joined
@@ -70,11 +63,15 @@ var setRoutes = function(server, models, app, sio) {
 
     // Listen for controller orientation changes
     socket.on("orient_change", function(data) {
-      console.log("orient_change", data);
       socket.get("game_uuid", function(err, uuid) {
-        // console.log("** broadcast to **", uuid);
-        // tell everyone *else* in the game that the orient changed
         socket.broadcast.to(uuid).volatile.emit("orient_change", data);
+      });
+    });
+
+    // Listen for player weapons fire
+    socket.on("player:fire", function(data) {
+      socket.get("game_uuid", function(err, uuid) {
+        socket.broadcast.to(uuid).volatile.emit("player:fire", data);
       });
     });
   });

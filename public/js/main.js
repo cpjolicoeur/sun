@@ -8,13 +8,13 @@
   $(init);
 
   function init() {
-    // chooseSplashScreen();
-    // NW.socketListeners();
-    // domListeners();
+    chooseSplashScreen();
+    NW.socketListeners();
+    domListeners();
     setupSoundManager();
-    NW.$('#hold').html(NW.templates.game_view());
-    NW.$('body').append(NW.templates.health_bar_view());
-    NW.game.start();
+    // NW.$('#hold').html(NW.templates.game_view());
+    // NW.$('body').append(NW.templates.health_bar_view());
+    // NW.game.start();
   }
 
   function setupSoundManager() {
@@ -47,7 +47,7 @@
   function controllerOrientChange(data) {
     if (NW.inGame) {
       data = NW.normalizeInput(data);
-      NW.error("sending socket volatile: "+data.x);
+      // NW.error("sending socket volatile: "+data.x);
       NW.socket.emit("orient_change", {controller: data, ts: new Date().getTime()});
     } else if (NW.controllerCalibrationMode) {
       NW.sendControllerCalibrationData(data);

@@ -3,6 +3,7 @@
 
   function init() {
     NW.controller_calibrate(enterTokenForm);
+    // enterTokenForm();
   }
 
   function enterTokenForm() {

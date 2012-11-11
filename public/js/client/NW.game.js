@@ -31,6 +31,8 @@
         y: NW.game.spawnPoint.y - player.ship._w - 10
       });
       NW.game.players.push(player);
+    } else {
+      console.log("player already found", player);
     }
   }
 
@@ -47,7 +49,7 @@
   NW.game.playerStoppedFiring = function(data){
   }
 
-  NW.game.start = function(data) {
+  NW.game.start = function() {
 
     NW.setHealth("100%")
     NW.drawSpace();
@@ -69,6 +71,7 @@
     NW.game.initComponents()
 
     Crafty.scene("loading");
+    console.log("** GAME STARTED **");
   }
 
 })();

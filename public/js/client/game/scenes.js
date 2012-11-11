@@ -35,8 +35,10 @@ window.NW.game.initScenes = function(){
 
   Crafty.scene("main", function () {
 
-    NW.game.playerAdded({token:"player1"})
-    NW.game.playerAdded({token:"player2"})
+    $(window).trigger("NW:GameReady");
+
+    // NW.game.playerAdded({token:"player1"})
+    // NW.game.playerAdded({token:"player2"})
 
     Crafty.e("Sun")
     Crafty.e("Spawner")

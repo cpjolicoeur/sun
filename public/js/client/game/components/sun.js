@@ -17,8 +17,7 @@ window.NW.game.initSun = function(){
             window.NW.sounds["explode2"].play();
             e[0].obj.kill("red");
           }else{
-            Crafty.pause();
-            alert('Game Over Bitches');
+            NW.game.stop();
           }
         })
     }

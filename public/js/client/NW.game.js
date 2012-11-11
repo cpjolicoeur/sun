@@ -91,4 +91,9 @@
     console.log("** GAME STARTED **");
   }
 
+  NW.game.stop = function(){
+    Crafty.pause();
+    $("#game_over").show();
+  }
+
 })();

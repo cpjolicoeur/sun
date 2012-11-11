@@ -1,16 +1,11 @@
 !(function() {
   // uncomment to mute
-  soundManager.mute();
+  // soundManager.mute();
   window.NW       = window.NW || {};
 
   var sounds = {};
 
   function loadSounds() {
-    sounds['shoot'] = soundManager.createSound({
-      id: 'shoot',
-      url: '/mp3/shoot.mp3'
-    });
-
     sounds['explode'] = soundManager.createSound({
       id: 'explode',
       url: '/mp3/boom.mp3'

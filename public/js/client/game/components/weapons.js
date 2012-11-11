@@ -10,7 +10,6 @@ window.NW.game.initWeapons = function(){
     init: function(){
       this.bind("EnterFrame",function(e){
         if(e.frame % this.fireRate === 0 && this.firing) {
-          NW.sounds.shoot.play()
           this.fire();
         }
       });

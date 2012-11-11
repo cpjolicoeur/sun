@@ -16,11 +16,13 @@ window.NW.game.initWeapons = function(){
     },
 
     fire: function(){
-      var weapon = Crafty.e("Bullet, bullet0")
-      weapon.attr({
-        x: this._x + this._w / 2 - weapon._w / 2,
-        y: this._y + this._h / 2 - weapon._h / 2,
-      });
+      if(!this.flickering){
+        var weapon = Crafty.e("Bullet, bullet0")
+        weapon.attr({
+          x: this._x + this._w / 2 - weapon._w / 2,
+          y: this._y + this._h / 2 - weapon._h / 2,
+        });
+      };
     }
   });
 

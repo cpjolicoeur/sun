@@ -9,3 +9,24 @@
     color: white;
   }
 }
+
+#player_connect {
+  ul {
+    li {
+      display: inline-block;
+      width: 25%;
+      padding: 15px 0;
+      text-align: center;
+      background-color: rgba(2, 2, 2, 0.55);
+      color: rgba(243, 243, 243, 0.67);
+      @extend %maven_pro;
+      @include box-shadow(inset 1px 0px 0px rgba(94, 94, 94, 0.54));
+      &:first-child {
+        @include box-shadow(inset 0px 0px 0px rgba(94, 94, 94, 0.54));
+      }
+      &.connected {
+        color: #6BFF82;
+      }
+    }
+  }
+}

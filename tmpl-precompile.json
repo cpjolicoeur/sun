@@ -15,7 +15,8 @@
                 "choose_mode",
                 "controller_view",
                 "controller_calibrate",
-                "game_view"
+                "game_view",
+                "player_connect_view"
             ]
         }
     ]

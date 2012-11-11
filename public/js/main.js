@@ -13,6 +13,7 @@
     // domListeners();
     setupSoundManager()
     NW.$('#hold').html(NW.templates.game_view());
+    NW.$('body').prepend(NW.templates.player_connect_view());
     NW.game()
   }
 

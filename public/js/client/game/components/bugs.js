@@ -2,6 +2,10 @@ window.NW = window.NW || {};
 window.NW.game = window.NW.game || {};
 window.NW.game.initBugs = function(){
 
+Crafty.audio.add({
+  bug_expode: ['/mp3/boom.mp3']
+});
+
   Crafty.c("Bug",{
     focused: false,
     init: function(){

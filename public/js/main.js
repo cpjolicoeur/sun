@@ -11,20 +11,9 @@
     chooseSplashScreen();
     NW.socketListeners();
     domListeners();
-    setupSoundManager();
     // NW.$('#hold').html(NW.templates.game_view());
     // NW.$('body').append(NW.templates.health_bar_view());
     // NW.game.start();
-  }
-
-  function setupSoundManager() {
-    soundManager.setup({
-      url: '/swf/',
-      useFlashBlock: false,
-      onready: function() {
-        window.NW.loadSounds();
-      }
-    });
   }
 
   function domListeners() {

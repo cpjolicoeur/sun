@@ -41,7 +41,7 @@ window.NW.game.initWeapons = function(){
           }
       })
       .onHit("Bug",function(e){
-        NW.sounds.explode.play()
+        Crafty.audio.play('bug_explode');
         this.destroy();
         e[0].obj.kill("blue");
       });

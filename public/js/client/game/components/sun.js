@@ -10,13 +10,13 @@ window.NW.game.initSun = function(){
           x: Crafty.viewport.width / 2 - this._w / 2,
           y: Crafty.viewport.height - this._h
         })
-        .onHit("Bug",function(e){
+        .onHit("Bug",function(e) {
           if(this.health > 0){
             this.health--;
             window.NW.setHealth(this.health+"%")
-            window.NW.sounds["explode2"].play();
+            Crafty.audio.play('sun_hit');
             e[0].obj.kill("red");
-          }else{
+          } else {
             NW.game.stop();
           }
         })

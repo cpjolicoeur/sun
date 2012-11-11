@@ -5,12 +5,14 @@ window.NW.game.initSun = function(){
   Crafty.c("Sun",{
     health: 100,
     init: function(){
-      this.requires("2D, Canvas, Collision, sun")
+      this.requires("2D, Canvas, Collision, SpriteAnimation, sun")
         .attr({
           x: Crafty.viewport.width / 2 - this._w / 2,
-          y: Crafty.viewport.height - this._h
+          y: Crafty.viewport.height - this._h + 50
         })
-        .onHit("Bug",function(e) {
+        .animate("sparkle",0,0,3)
+        .animate("sparkle",120,-1)
+        .onHit("Bug",function(e){
           if(this.health > 0){
             this.health--;
             window.NW.setHealth(this.health+"%")

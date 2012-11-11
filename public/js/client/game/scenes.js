@@ -8,15 +8,9 @@ window.NW.game.initScenes = function(){
       "images/ships.png",
       "images/suns.png",
       "images/bugs.png",
-      "images/explosions.png"
+      "images/explosions.png",
+      "images/sparkles.png"
     ],function(){
-
-      // Crafty.sprite(28,"images/ships.png",{
-      //     ship1: [0, 0, 24, 30],
-      //     ship2: [0, 84, 24, 25],
-      //     ship3: [0, 58, 24, 25],
-      //     ship4: [0, 32, 24, 25]
-      // },2);
 
       Crafty.sprite(1,"images/ships.png",{
           ship1: [0, 120, 24, 30],
@@ -25,8 +19,8 @@ window.NW.game.initScenes = function(){
           ship4: [0, 700, 24, 30]
       });
 
-      Crafty.sprite(1,"images/suns.png",{
-        sun: [95,0,200,170]
+      Crafty.sprite(200,"images/sparkles.png",{
+        sun: [0,0]
       });
 
       Crafty.sprite(16,"images/bugs.png",{

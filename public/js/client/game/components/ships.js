@@ -4,7 +4,7 @@ window.NW.game.initShips = function(){
 
   Crafty.c("Ship",{
 
-    movementSpeed: 5,
+    movementSpeed: 8,
     flickerEnd: 0,
     flickerDuration: 120,
 

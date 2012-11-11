@@ -7,10 +7,13 @@ window.NW.game.initPlayers = function(){
       this.requires("2D, Canvas")
         .bind("NW:Crafty:PlayerMoved", function(data) {
           // x < 0 is right, x > 0 is left
-          // z < 0 is forward, z > 0 is backward
+          // z 0-45 is forward, z 45-90 is backward
+
           var from = {x: this.x, y: this.y};
+          var moveForward = (data.controller.z > 45 && data.controller.z < 90);
+
           this.x = (data.controller.x < 0) ? (this.x + this.movementSpeed) : (this.x - this.movementSpeed)
-          this.y = (data.controller.z > 0) ? (this.y + this.movementSpeed) : (this.y - this.movementSpeed)
+          this.y = moveForward ? (this.y + this.movementSpeed) : (this.y - this.movementSpeed)
           this.trigger("Moved", from);
         })
     }

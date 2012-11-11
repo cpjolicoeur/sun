@@ -32,6 +32,13 @@ var setRoutes = function(server, models, app, sio) {
   sio.sockets.on('connection', function(socket) {
     sid = socket.handshake.sessionID;
 
+    // Remove from any games on disconnect
+    socket.on("disconnect", function() {
+      socket.get("game_uuid", function(err, uuid) {
+
+      });
+    });
+
     // Listen for new game/new token requests
     socket.on("new_game", function(data) {
       GameController.getOpenGame(function(err, game) {
@@ -42,8 +49,10 @@ var setRoutes = function(server, models, app, sio) {
             if (err) {
               socket.emit("new_game:error", {error: err});
             } else {
-              socket.join(game.uuid);
-              socket.emit("new_game:success", {token: token});
+              socket.set("user_token", token, function() {
+                socket.join(game.uuid);
+                socket.emit("new_game:success", {token: token});
+              });
             }
           });
         }
@@ -58,8 +67,11 @@ var setRoutes = function(server, models, app, sio) {
         } else {
           socket.join(game.uuid);
           socket.set("game_uuid", game.uuid, function() {
-            // tell everyone in the game that the game has been joined
-            sio.sockets.in(game.uuid).emit("join_game:success", {game: game});
+            socket.set("user_token", data.token, function() {
+              console.log("join game", game, data.token);
+              // tell everyone in the game that a new user has joined
+              sio.sockets.in(game.uuid).emit("join_game:success", {game: game, user: data.token});
+            });
           });
         }
       });
@@ -68,14 +80,18 @@ var setRoutes = function(server, models, app, sio) {
     // Listen for controller orientation changes
     socket.on("orient_change", function(data) {
       socket.get("game_uuid", function(err, uuid) {
-        socket.broadcast.to(uuid).volatile.emit("orient_change", data);
+        socket.get("user_token", function(err, token) {
+          socket.broadcast.to(uuid).volatile.emit("orient_change", {controller: data.controller, ts: data.ts, user: token});
+        });
       });
     });
 
     // Listen for player weapons fire
     socket.on("player:fire", function(data) {
       socket.get("game_uuid", function(err, uuid) {
-        socket.broadcast.to(uuid).volatile.emit("player:fire", data);
+        socket.get("user_token", function(err, token) {
+          socket.broadcast.to(uuid).volatile.emit("player:fire", {user: token});
+        });
       });
     });
   });

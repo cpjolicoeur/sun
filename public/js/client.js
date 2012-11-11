@@ -80,6 +80,7 @@
             e[0].obj.destroy();
           })
           .onHit("Bug",function(e){
+            NW.sounds.explode.play()
             this.destroy();
             e[0].obj.destroy();
           });
@@ -119,7 +120,10 @@
             LEFT_ARROW: 180
           })
           .bind("KeyDown", function(e) {
-            if(e.keyCode === Crafty.keys.SPACE) this.firing = true;
+            if(e.keyCode === Crafty.keys.SPACE) {
+              NW.sounds.shoot.play()
+              this.firing = true;
+            }
           })
           .bind("KeyUp", function(e) {
             if(e.keyCode === Crafty.keys.SPACE) this.firing = false;

@@ -4,14 +4,26 @@
   NW.socket       = io.connect(window.location.origin);
   NW.inGame       = false;
 
+
   $(init);
 
   function init() {
     // chooseSplashScreen();
     // NW.socketListeners();
     // domListeners();
+    setupSoundManager()
     NW.$('#hold').html(NW.templates.game_view());
     NW.game()
+  }
+
+  function setupSoundManager() {
+    soundManager.setup({
+      url: '/swf/',
+      useFlashBlock: false,
+      onready: function() {
+        window.NW.loadSounds();
+      }
+    });
   }
 
   function domListeners() {

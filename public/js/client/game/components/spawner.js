@@ -6,7 +6,7 @@ window.NW.game.initSpawner = function(){
     _pick: function(from){
       return from[Math.floor(Math.random() * from.length)];
     },
-    spawnRate: 30,
+    spawnRateMax: 240,
     spawnBehaviors: [
       "bold",
       "meek"
@@ -26,7 +26,8 @@ window.NW.game.initSpawner = function(){
         var behavior;
         var appearance;
         var point;
-        if(e.frame % this.spawnRate === 0){
+        var rate = this.spawnRateMax / NW.game.players.length;
+        if(e.frame % rate === 0){
           behavior = this._pick(this.spawnBehaviors);
           appearance = this._pick(this.spawnAppearances);
           point = this._pick(this.spawnPoints);

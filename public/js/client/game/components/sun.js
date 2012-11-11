@@ -3,7 +3,7 @@ window.NW.game = window.NW.game || {};
 window.NW.game.initSun = function(){
 
   Crafty.c("Sun",{
-    health: 10,
+    health: 100,
     init: function(){
       this.requires("2D, Canvas, Collision, sun")
         .attr({
@@ -13,9 +13,9 @@ window.NW.game.initSun = function(){
         .onHit("Bug",function(e){
           if(this.health > 0){
             this.health--;
-            window.NW.setHealth((this.health*10)+"%")
+            window.NW.setHealth(this.health+"%")
             window.NW.sounds["explode2"].play();
-            e[0].obj.kill();
+            e[0].obj.kill("red");
           }else{
             Crafty.pause();
             alert('Game Over Bitches');

@@ -1,10 +1,12 @@
 !(function() {
   var doneCB;
-  var calibrateData = [];
+  var calibrateData       = [];
+  var calibrationDuration = 3;
 
   window.NW                         = window.NW || {};
   NW.controller_calibrate           = init;
   NW.sendControllerCalibrationData  = receiveData;
+  NW.calibrationLevels              = {};
 
   function init(cb) {
     doneCB = cb;
@@ -33,7 +35,12 @@
     doneCB();
   }
 
-  function runCountDown(duration) {
+  /**
+  *
+  * shows the seconds by second countdown for calibration
+  *
+  **/
+  function runCountDown(duration, step) {
     var initalDuration = duration
     $('#controller_calibrate .countdown').html(duration);
     var countDown = setInterval(function() {
@@ -42,26 +49,35 @@
         calibrateData = [];
       }
       if (duration == 1) {
-        calculateCalibration();
+        calculateCalibration(step);
         clearInterval(countDown);
       }
     }, 1000)
   }
 
-  function calculateCalibration() {
+  /**
+  *
+  * averages the calibration data to calc a "max"
+  *
+  **/
+  function calculateCalibration(step) {
     var total = 0;
     _.each(calibrateData, function(val) {
       total+= val;
     });
-    console.log("-- average --");
-    console.log(total/calibrateData.length);
+    NW.calibrationLevels[step] = total/calibrateData.length;
   }
 
+  /**
+  *
+  * Steps through each rotation to set calibrations
+  *
+  **/
   function rotationSteps(cb) {
     var steps    = [45, 0 ,-45];
-    var duration = 5;
+    var duration = calibrationDuration;
     (function getValue(step) {
-      runCountDown(duration);
+      runCountDown(duration, steps[step]);
       $('.to_follow', NW.$('#controller_calibrate')).css('transform', 'rotate('+steps[step]+'deg)');
       setTimeout(function() {
         if (steps[++step] != undefined) {

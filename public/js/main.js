@@ -27,6 +27,7 @@
 
   function controllerOrientChange(data) {
     if (NW.inGame) {
+      data = NW.controller.normalizeInput(data);
       NW.error("sending socket volatile: "+data.x);
       NW.socket.emit("orient_change", {controller: data, ts: new Date().getTime()});
     } else if (NW.controllerCalibrationMode) {

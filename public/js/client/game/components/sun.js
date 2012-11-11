@@ -3,7 +3,7 @@ window.NW.game = window.NW.game || {};
 window.NW.game.initSun = function(){
 
   Crafty.c("Sun",{
-    health: 100,
+    health: 50,
     init: function(){
       this.requires("2D, Canvas, Collision, SpriteAnimation, sun")
         .attr({

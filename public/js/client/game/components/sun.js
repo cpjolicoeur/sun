@@ -15,7 +15,7 @@ window.NW.game.initSun = function(){
         .onHit("Bug",function(e){
           if(this.health > 0){
             this.health--;
-            window.NW.setHealth(this.health+"%")
+            window.NW.setHealth((this.health*2)+"%")
             Crafty.audio.play('sun_hit');
             e[0].obj.kill("red");
           } else {

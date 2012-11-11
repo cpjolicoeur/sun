@@ -291,6 +291,7 @@
       }
     })
 
+
     var sun = Crafty.e("Sun")
 
     var player;
@@ -321,27 +322,6 @@
             bug = Crafty.e("Bug, 2D, Canvas, enemy, "+type)
             bug.attr({
               x: point - bug._w / 2,
-              y: 0,
-              target: player
-            });
-          }
-        })
-      }
-    });
-
-
-    Crafty.c("Spawner",{
-      spawnRate: 50,
-      spawnTypes : ["bold","bitch"],
-      init: function(){
-        this.bind("EnterFrame",function(e){
-          var bug;
-          var type;
-          if(e.frame % this.spawnRate === 0){
-            type = this.spawnTypes[Math.floor(Math.random()*2)]
-            bug = Crafty.e("Bug, 2D, Canvas, enemy, "+type)
-            bug.attr({
-              x: Crafty.viewport.width / 2 - bug._w / 2,
               y: 0,
               target: player
             });

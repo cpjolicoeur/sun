@@ -33,7 +33,11 @@
     });
 
     NW.socket.on("player:fire", function(data) {
-      Crafty.trigger("NW:PlayerStartedFiring", data);
+      if (data.rapid == "end") {
+        Crafty.trigger("NW:PlayerStoppedFiring", data);
+      } else {
+        Crafty.trigger("NW:PlayerStartedFiring", data);
+      }
     });
   }
 })();

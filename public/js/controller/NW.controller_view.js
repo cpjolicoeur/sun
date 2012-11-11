@@ -26,12 +26,23 @@
 
   function showController(e) {
     NW.$('#hold').html(NW.templates.controller_view());
+    $(".fire", NW.$("#hold")).on('touchstart', startRapidFire);
+    $(".fire", NW.$("#hold")).on('touchend', endRapidFire);
     $(".fire", NW.$("#hold")).on('click', fireWeapon);
+
     NW.inGame = true;
   }
 
+  function startRapidFire(e) {
+    NW.socket.emit("player:fire", {rapid: "start"});
+  }
+
+  function endRapidFire(e) {
+    NW.socket.emit("player:fire", {rapid: "end"});
+  }
+
   function fireWeapon(e) {
-    NW.socket.emit("player:fire", {});
+    NW.socket.emit("player:fire", {rapid: false});
   }
 
   NW.controller_view = {

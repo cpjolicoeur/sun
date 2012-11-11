@@ -12,6 +12,9 @@
     }
     &.screen {
       background: #57A8C7 url('images/eye.png') 10px center no-repeat;
+      @media screen and(max-width: 480px) {
+        display: none;
+      }
     }
   }
 }

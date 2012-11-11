@@ -6,7 +6,7 @@ window.NW.game.initSpawner = function(){
     _pick: function(from){
       return from[Math.floor(Math.random() * from.length)];
     },
-    spawnRateMax: 120,
+    spawnRateMax: 80,
     spawnBehaviors: [
       "bold",
       "meek"

@@ -21,14 +21,13 @@ window.NW.game.initBugs = function(){
           this.y += this.dy;
         })
     },
-    kill: function(successful){
-      if(!successful) NW.game.score++;
+    kill: function(color){
       Crafty.e("explode")
         .attr({
           x: this._x,
           y: this._y,
         })
-        .explode(successful ? "red" : "blue")
+        .explode(color)
       this.destroy()
     }
   });

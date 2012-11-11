@@ -30,7 +30,7 @@ window.NW.game.initShips = function(){
           }
         })
         .onHit("Bug",function(e){
-          e[0].obj.kill(false)
+          e[0].obj.kill("blue")
           this.spawn()
         })
     },

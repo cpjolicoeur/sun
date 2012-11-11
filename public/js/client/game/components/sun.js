@@ -15,10 +15,10 @@ window.NW.game.initSun = function(){
             this.health--;
             window.NW.setHealth(this.health+"%")
             window.NW.sounds["explode2"].play();
-            e[0].obj.kill(true);
+            e[0].obj.kill("red");
           }else{
             Crafty.pause();
-            alert('Game Over Bitches. Score: ' + NW.game.score);
+            alert('Game Over Bitches');
           }
         })
     }

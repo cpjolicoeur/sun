@@ -12,8 +12,12 @@
   }
 
   function showGame(evt, data) {
-    NW.$('#hold').html(NW.templates.game_view());
-    NW.game(data);
+    // only show game_view if this was from our token
+    var my_token = $(".token", NW.$("#hold")).html();
+    if (my_token == data.token) {
+      NW.$('#hold').html(NW.templates.game_view());
+      NW.game(data);
+    }
   }
 
   function createNewGame() {

@@ -144,7 +144,7 @@
           } else if ( pseudo_pixels[i][j] == 2 ){
             ship_context.fillStyle  = color;
           } else {
-            ship_context.fillStyle  = '#333';
+            ship_context.fillStyle  = '#000';
           }
           ship_context.fillRect(pixel_size*j, pixel_size*i, pixel_size, pixel_size);
         }
@@ -192,7 +192,9 @@
   function Ship(seed){
     Math.seedrandom(seed);
     this.color = "rgb("+Math.floor(Math.random()*255)+", "+Math.floor(Math.random()*255)+", "+Math.floor(Math.random()*255)+")";
-    this.canvas = shipCanvas(this.color);
+    //console.log(this.color)
+    //this.canvas = shipCanvas(this.color);
+    this.canvas = shipCanvas("rgb(192,156,249)")
 
     Ship.prototype.draw = function(x, y, rotation, ctx){
       var ship_context = this.canvas.getContext("2d");

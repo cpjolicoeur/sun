@@ -15,11 +15,11 @@
     //load takes an array of assets and a callback when complete
 
     //turn the sprite map into usable components
-    Crafty.sprite(24, window.NW.generator(), {
-        ship: [0, 3]
+    Crafty.sprite(1, window.NW.generator(), {
+        ship: [0, 0,24,32]
     },4,0);
     Crafty.sprite(1, "../images/suns.png", {
-      sun: [95,0,200,150]
+      sun: [95,0,200,200]
     });
     Crafty.sprite(16, "../images/enemy_1.png", {
       enemy: [0,0]
@@ -143,6 +143,9 @@
               this.attr({ x: from.x, y: from.y });
             }
           })
+          .onHit("Bug",function(e){
+            e[0].obj.destroy()
+          })
       }
 
     });
@@ -151,7 +154,28 @@
 // enemy types:
 //  bold - flys toward player
 //  bitch - flys from player
-//  bored - flys randomly
+//  bored - flys randomly **
+
+    Crafty.c("Bug",{
+      focused: false,
+      init: function(){
+        this.requires("2D, Canvas")
+          .bind("EnterFrame",function(){
+            if(this.y > this.target._y + this.target._h ||
+                this.y + this.h > Crafty.viewport.height / 2){
+              this.focused = true;
+              if(this.x + this.w / 2 > Crafty.viewport.width / 2){
+                this.x -= this.dx;
+              }else if(this.x + this.w / 2 < Crafty.viewport.width / 2){
+                this.x += this.dx;
+              }
+            }else{
+              this.focused = false;
+            }
+            this.y += this.dy;
+          })
+      }
+    })
 
     Crafty.c("bold",{
       dx: 2,
@@ -159,16 +183,11 @@
       init: function(){
         this.requires("2D, Canvas")
           .bind("EnterFrame",function(){
-            if(this.y > this.target._y + this.target._h){
+            if(this.focused){
             }else if(this.x + this.w < this.target._x){
               this.x += this.dx;
             }else if(this.x > this.target._x + this.target._w){
               this.x -= this.dx;
-            }
-            if(this.y + this.w > Crafty.viewport.height){
-              this.destroy();
-            }else{
-              this.y += this.dy;
             }
           });
       }
@@ -180,17 +199,12 @@
      init: function(){
         this.requires("2D, Canvas")
           .bind("EnterFrame",function(){
-            if(this.y > this.target._y + this.target._h){
-            }else if(this.x + this.w < this.target._x){
-              this.x -= this.dx;
+            if(this.focused){
+            }else if(this.x + this.w <= this.target._x){
+              if(this.x > 0){ this.x -= this.dx; };
             }else if(this.x > this.target._x + this.target._w){
-              this.x += this.dx;
-            }
-            if(this.y + this.w > Crafty.viewport.height){
-              this.destroy();
-            }else{
-              this.y += this.dy;
-            }
+              if(this.x + this.w < Crafty.viewport.width){ this.x += this.dx; };
+            };
           });
      }
     })
@@ -218,7 +232,10 @@
     sun.attr({
         x: Crafty.viewport.width / 2 - sun._w / 2,
         y: Crafty.viewport.height - sun._h
-      });
+      })
+    sun.onHit("Bug",function(e){
+      e[0].obj.destroy();
+    });
 
     var player;
     NW.player = player = Crafty.e("Ship, Weapon, Player")
@@ -228,17 +245,26 @@
       });
 
     Crafty.c("Spawner",{
-      spawnRate: 50,
-      spawnTypes : ["bold","bitch"],
+      spawnRate: 30,
+      spawnTypes: [
+        "bold",
+        "bitch"
+      ],
+      spawnPoint: [
+        Crafty.viewport.width / 3,
+        Crafty.viewport.width / 3 * 2
+      ],
       init: function(){
         this.bind("EnterFrame",function(e){
           var bug;
           var type;
+          var point;
           if(e.frame % this.spawnRate === 0){
-            type = this.spawnTypes[Math.floor(Math.random()*2)]
+            type = this.spawnTypes[Math.round(Math.random())]
+            point = this.spawnPoint[Math.round(Math.random())]
             bug = Crafty.e("Bug, 2D, Canvas, enemy, "+type)
             bug.attr({
-              x: Crafty.viewport.width / 2 - bug._w / 2,
+              x: point - bug._w / 2,
               y: 0,
               target: player
             });

@@ -3,7 +3,7 @@ window.NW.game = window.NW.game || {};
 window.NW.game.initSun = function(){
 
   Crafty.c("Sun",{
-    health: 50,
+    health: 33,
     init: function(){
       this.requires("2D, Canvas, Collision, SpriteAnimation, sun")
         .attr({
@@ -15,7 +15,7 @@ window.NW.game.initSun = function(){
         .onHit("Bug",function(e){
           if(this.health > 0){
             this.health--;
-            window.NW.setHealth((this.health*2)+"%")
+            window.NW.setHealth((this.health*3)+"%")
             Crafty.audio.play('sun_hit');
             e[0].obj.kill("red");
           } else {

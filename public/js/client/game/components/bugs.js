@@ -2,10 +2,6 @@ window.NW = window.NW || {};
 window.NW.game = window.NW.game || {};
 window.NW.game.initBugs = function(){
 
-Crafty.audio.add({
-  bug_expode: ['/mp3/boom.mp3']
-});
-
   Crafty.c("Bug",{
     focused: false,
     init: function(){
@@ -75,9 +71,9 @@ Crafty.audio.add({
         .bind("EnterFrame",function(){
           if(this.focused){
           }else if(this.x + this.w <= this.target._x){
-            if(this.x > 0){ this.x -= this.dx; };
+            if(this.x > 10){ this.x -= this.dx; };
           }else if(this.x > this.target._x + this.target._w){
-            if(this.x + this.w < Crafty.viewport.width){ this.x += this.dx; };
+            if(this.x + this.w + 10 < Crafty.viewport.width){ this.x += this.dx; };
           };
         });
    }

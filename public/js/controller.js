@@ -20,12 +20,6 @@
       return !!(window.DeviceOrientationEvent);
     }
 
-    function onMotionChange(e) {
-      lastMotion = normalizeAcceleration(e.accelerationIncludingGravity);
-      settings.debug && outputDebug();
-      settings.changeCallback && settings.changeCallback(lastMotion);
-    }
-
     function onOrientationChange(e) {
       lastMotion = normalizeOrientationChange(e);
       settings.debug && outputDebug();
@@ -35,11 +29,13 @@
     function normalizeOrientationChange(e) {
       if (e.alpha) {
         if (window.orientation == 90) {
-          return {x: -1 * e.beta, z: e.gamma, orientation: window.orientation}
+          return {x: -1 * e.beta, z: e.gamma * -1, orientation: window.orientation}
         } else if (window.orientation == 0) {
           return {x: -1 * e.gamma, z: e.beta, orientation: window.orientation}
+        } else if (window.orientation == -90) {
+          return {x: -1 * e.beta, z: e.gamma, orientation: window.orientation}
         } else {
-          return {x: e.beta, z: e.gamma, orientation: window.orientation}
+          return {x: e.gamma, z: e.beta * -1, orientation: window.orientation}
         }
       } else {
         return {x: -1 * e.gamma, z: e.beta, orientation: 0}
@@ -63,20 +59,6 @@
         toReturn +=  key + ": " + obj[key] + "</br>";
       }
       return toReturn;
-    }
-
-    // inverts the Z axis
-    // uses Y for X and flips it and inverts it depending on the orientation
-    // so it maps to left and right
-    // -- this is basically emulating a steering wheel --
-    function normalizeAcceleration(acceleration) {
-      var flipAcceleration = (window.orientation == 90 || window.orientation == 180) ? 1 : -1;
-      var xDirection = (window.orientation == 0 || window.orientation == 180) ? acceleration.x : acceleration.y;
-      return {
-        x: xDirection,
-        z: acceleration.z * -1,
-        orientation: window.orientation
-      }
     }
 
     (function init() {

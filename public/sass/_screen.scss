@@ -36,12 +36,13 @@
   padding: 10px;
   position: relative;
   .fill {
-    width: 99%;
+    width: 100%;
     position: absolute;
     height: 100%;
     top: 0;
     left: 0;
     z-index: 10;
     background-color: #45B849;
+    @include transition(width 200ms);
   }
 }

@@ -164,10 +164,10 @@
             if(this.y > this.target._y + this.target._h ||
                 this.y + this.h > Crafty.viewport.height / 2){
               this.focused = true;
-              if(this.x + this.w / 2 > Crafty.viewport.width / 2){
-                this.x -= this.dx;
-              }else if(this.x + this.w / 2 < Crafty.viewport.width / 2){
+              if(this.x + this.w / 2 < Crafty.viewport.width / 2){
                 this.x += this.dx;
+              }else if(this.x > Crafty.viewport.width / 2 + this.w * 3 / 2){
+                this.x -= this.dx;
               }
             }else{
               this.focused = false;

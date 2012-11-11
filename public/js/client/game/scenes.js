@@ -9,8 +9,15 @@ window.NW.game.initScenes = function(){
       "images/suns.png",
       "images/bugs.png",
       "images/explosions.png",
-      "images/sparkles.png"
+      "images/sparkles.png",
+      "mp3/boom.mp3",
+      "mp3/boom2.mp"
     ],function(){
+
+      Crafty.audio.add({
+        bug_explode: ['/mp3/boom.mp3'],
+        sun_hit: ['/mp3/boom2.mp3']
+      });
 
       Crafty.sprite(1,"images/ships.png",{
           ship1: [0, 120, 24, 30],

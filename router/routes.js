@@ -41,20 +41,13 @@ var setRoutes = function(server, models, app, sio) {
 
     // Listen for new game/new token requests
     socket.on("new_game", function(data) {
-      GameController.getOpenGame(function(err, game) {
+      GameController.newGame(function(err, game) {
+        console.log("new_game", err, game);
         if (err) {
           socket.emit("new_game:error", {error: err});
         } else {
-          GameController.requestToken(function(err, token) {
-            if (err) {
-              socket.emit("new_game:error", {error: err});
-            } else {
-              socket.set("user_token", token, function() {
-                socket.join(game.uuid);
-                socket.emit("new_game:success", {token: token});
-              });
-            }
-          });
+          socket.join(game.uuid);
+          socket.emit("new_game:success", {game: game});
         }
       });
     });
@@ -68,7 +61,7 @@ var setRoutes = function(server, models, app, sio) {
           socket.join(game.uuid);
           socket.set("game_uuid", game.uuid, function() {
             socket.set("user_token", data.token, function() {
-              console.log("join game", game, data.token);
+              // console.log("join game", game, data.token);
               // tell everyone in the game that a new user has joined
               sio.sockets.in(game.uuid).emit("join_game:success", {game: game, token: data.token});
             });

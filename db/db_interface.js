@@ -9,7 +9,7 @@ var UserModel = new Schema({
 var GameModel = new Schema({
   // need a game id or token
   users: [UserModel],
-  size: {type: Number, default: 0},
+  tokens: [String],
   level: {type: Number, default: 0},
   score: {type: Number, default: 0},
   uuid: {type: String, required: true},

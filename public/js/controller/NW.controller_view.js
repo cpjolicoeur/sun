@@ -9,6 +9,7 @@
     $('#hold').html(NW.templates.enter_token());
     NW.$("#sync_with_phone"); // cache our template selector
     $("#game_token", NW.$("#sync_with_phone")).focus();
+    NW.inGame = false;
     setDomListeners();
   }
 
@@ -25,6 +26,7 @@
   function showController(e) {
     NW.$('#hold').html(NW.templates.controller_view());
     $(".fire", NW.$("#hold")).on('click', fireWeapon);
+    NW.inGame = true;
   }
 
   function fireWeapon(e) {

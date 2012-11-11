@@ -2,18 +2,14 @@
   window.NW = window.NW || {};
 
   // hold all the players
-  window.NW.players = [];
+  NW.players = [];
 
-  window.NW.game = function(data) {
+  NW.game = function(data) {
     NW.setHealth("100%")
-    // store the initial players
-    _.each(data.game.users, function(user) {
-      console.log("NW.game storing user", user.token);
-      window.NW.players.push({user: user, ship: null});
-    });
 
     Crafty.bind("NW:PlayerMoved", playerMoved);
     Crafty.bind("NW:PlayerShoot", playerShoot);
+    Crafty.bind("NW:AddPlayer", addPlayer);
 
     Crafty.init(800,600);
     Crafty.canvas.init();
@@ -28,8 +24,8 @@
    * the actual player instance
    */
   function findPlayer(token) {
-    return _.find(window.NW.players, function(p) {
-      return token === p.user.token;
+    return _.find(NW.players, function(p) {
+      return token === p.user;
     });
   }
 
@@ -38,9 +34,22 @@
     player && player.ship.trigger("NW:Crafty:PlayerMoved", data);
   }
 
-  function playerShoot(token) {
-    var player = findPlayer(token, true);
+  function playerShoot(data) {
+    var player = findPlayer(data.token);
     player && player.ship.shoot();
+  }
+
+  function addPlayer(data) {
+    var player = findPlayer(data.token);
+    if (!player) {
+      var player = {user: data.token};
+      player.ship = Crafty.e("Ship, Weapon, Player");
+      player.ship.attr({
+        x: Crafty.viewport.width / 2 - player._w / 2,
+        y: Crafty.viewport.height - sun._h - player._w - 10
+      });
+      NW.players.push(player);
+    }
   }
 
   //the loading screen that will display while our assets load

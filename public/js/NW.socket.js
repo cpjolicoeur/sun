@@ -3,11 +3,15 @@
 
   window.NW.socketListeners = function() {
     NW.socket.on("disconnect", function() {
-      NW.inGame = false;
+      // TODO: remove user from game and Crafty display here
     });
 
     NW.socket.on("new_game:success", function(data) {
-      $(".token", NW.$( '#sync_with_desktop' )).html(data.token);
+      // TODO: display all 4 game tokens here
+      _.each(data.game.tokens, function(token) {
+        var li = $("<li/>").addClass("token").html(token);
+        $(".tokens", NW.$("#sync_with_desktop")).append(li);
+      });
     });
 
     NW.socket.on("new_game:error", function(data) {
@@ -16,12 +20,10 @@
 
     NW.socket.on("join_game:success", function(game) {
       $(window).trigger("NK:join_game:success", game);
-      NW.inGame = true;
     });
 
     NW.socket.on("join_game:error", function(data) {
       NW.error("problem joining game\n\n"+ data.error);
-      NW.inGame = false;
     });
 
     NW.socket.on("orient_change", function(data) {
@@ -32,7 +34,7 @@
     });
 
     NW.socket.on("player:fire", function(data) {
-      Crafty.trigger("NW:PlayerShoot", data.token);
+      Crafty.trigger("NW:PlayerShoot", data);
     });
   }
 })();

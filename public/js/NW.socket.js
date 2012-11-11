@@ -28,7 +28,7 @@
       var t = new Date().getTime();
       var latency = t - data.ts;
       NW.error("orient_change - latency: "+latency+", x: "+data.controller.x);
-      NW.player.trigger("NW:PlayerMoved", data.controller);
+      NW.player && NW.player.trigger("NW:PlayerMoved", data.controller);
     });
 
     NW.socket.on("player:fire", function(data) {

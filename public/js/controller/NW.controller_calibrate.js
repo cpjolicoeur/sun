@@ -10,7 +10,7 @@
 
   function init(cb) {
     doneCB = cb;
-    $('#wrap').html(NW.templates.controller_calibrate());
+    $('#hold').html(NW.templates.controller_calibrate());
     setDomListeners();
   }
 

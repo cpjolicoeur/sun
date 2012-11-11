@@ -6,7 +6,7 @@
   }
 
   function enterTokenForm() {
-    $('#wrap').html(NW.templates.enter_token());
+    $('#hold').html(NW.templates.enter_token());
     NW.$("#sync_with_phone"); // cache our template selector
     $("#game_token", NW.$("#sync_with_phone")).focus();
     setDomListeners();

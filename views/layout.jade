@@ -22,9 +22,13 @@ html
     script(src="js/client/game/components/sun.js", type="text/javascript")
     script(src="js/client/game/components/weapons.js", type="text/javascript")
     link(rel="stylesheet", href="stylesheets/main.css", type="text/css")
+
     block head
   body
     block content
 
+    #game_over(style="display:none")
+        p the sun is dead.. you have failed
+        a.btn(href="/") Play Again?
     #footer
       //- iframe(src="http://nodeknockout.com/iframe/narwhals", frameborder=0, scrolling='no', allowtransparency=true, width=115, height=25)

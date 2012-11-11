@@ -26,6 +26,23 @@ html {
   cursor: pointer;
 }
 
+
+#game_over {
+  background: rgba(0, 0, 0, 0.83);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  text-align: center;
+  font-size: 50px;
+  padding-top: 20%;
+  a {
+    margin-top: 50px;
+    text-decoration: none;
+    color: #FFF !Important;
+  }
+}
+
 #wrap {
   padding-top: $spacing_block;
   max-width: 1000px;

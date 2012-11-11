@@ -10,6 +10,7 @@
 
   NW.game.score = 0;
   NW.game.players = [];
+  NW.game.didInit = false;
 
   NW.game.nextPlayer = (function(){
     var cursor = 0;
@@ -66,9 +67,7 @@
     }
   };
 
-  NW.game.start = function() {
-
-    NW.setHealth("100%")
+  NW.game.init = function(){
     NW.drawSpace();
 
     Crafty.init(800,600);
@@ -87,8 +86,16 @@
 
     NW.game.initScenes()
     NW.game.initComponents()
+  }
 
-    Crafty.scene("loading");
+  NW.game.start = function() {
+
+    if(NW.game.didInit === false) NW.game.init();
+
+    NW.setHealth("100%")
+
+    Crafty.scene(NW.game.didInit ? "main" : "loading")
+
     console.log("** GAME STARTED **");
   }
 

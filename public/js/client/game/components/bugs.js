@@ -22,20 +22,30 @@ window.NW.game.initBugs = function(){
         })
     },
     kill: function(){
-      var bug = this;
-      Crafty.e("2D, DOM, SpriteAnimation, explosion")
+      Crafty.e("explode")
         .attr({
-          x: bug.x - bug.w / 2,
-          y: bug.y - bug.h / 2
+          x: this._x,
+          y: this._y,
         })
-        .animate('explode',0,0,4)
-        .animate('explode',4,1)
-        .bind("AnimationEnd",function(){
-          this.destroy()
-        })
+        .explode("red")
       this.destroy()
     }
   });
+
+  Crafty.c("explode",{
+    init: function(){
+      this.requires("2D, Canvas, SpriteAnimation, explosion0")
+    },
+    explode: function(color){
+      var number = color === "red" ? 1 : 0;
+      this
+        .animate('explode',0,number,4)
+        .animate('explode',4,0)
+        .bind("AnimationEnd",function(){
+          this.destroy();
+        });
+    }
+  })
 
   Crafty.c("bold",{
     dx: 2,
@@ -53,7 +63,7 @@ window.NW.game.initBugs = function(){
     }
   });
 
-  Crafty.c("bitch",{
+  Crafty.c("meek",{
    dx: 2,
    dy: 1,
    init: function(){

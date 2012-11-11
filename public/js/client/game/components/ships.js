@@ -10,6 +10,7 @@ window.NW.game.initShips = function(){
 
     init: function(){
       this.requires("2D, Canvas, Collision, Flicker, ship")
+        .attr({ z: 10 })
         .bind("EnterFrame",function(e){
           if(this.flickering){
             if(!this.flickerEnd){

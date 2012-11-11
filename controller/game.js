@@ -13,10 +13,10 @@ var createGame = function(cb) {
   var game = new models.Game();
   game.uuid = uuid.v1();
   game.tokens = [
-    uuid.v4().split("-")[0],
-    uuid.v4().split("-")[0],
-    uuid.v4().split("-")[0],
-    uuid.v4().split("-")[0]
+    Math.floor(Math.random()*1000000).toString(36),
+    Math.floor(Math.random()*1000000).toString(36),
+    Math.floor(Math.random()*1000000).toString(36),
+    Math.floor(Math.random()*1000000).toString(36)
   ],
   game.save(function(err) {
     cb(err, game);

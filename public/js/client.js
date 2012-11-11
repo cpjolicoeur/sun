@@ -269,7 +269,6 @@
      }
     });
 
-
     Crafty.c("Sun",{
       health: 10,
       init: function(){
@@ -340,7 +339,7 @@
           var type;
           if(e.frame % this.spawnRate === 0){
             type = this.spawnTypes[Math.floor(Math.random()*2)]
-            bug = Crafty.e("Bug, "+type)
+            bug = Crafty.e("Bug, 2D, Canvas, enemy, "+type)
             bug.attr({
               x: Crafty.viewport.width / 2 - bug._w / 2,
               y: 0,
@@ -349,7 +348,7 @@
           }
         })
       }
-    })
+    });
 
     Crafty.e("Spawner")
 

@@ -26,7 +26,7 @@
           // launch initial game
           NW.$('#hold').html(NW.templates.game_view());
           NW.$('body').append(NW.templates.health_bar_view());
-          NW.game(data);
+          NW.game.start(data);
           NW.inGame = true;
         }
 

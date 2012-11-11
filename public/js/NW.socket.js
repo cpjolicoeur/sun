@@ -3,7 +3,9 @@
 
   window.NW.socketListeners = function() {
     NW.socket.on("disconnect", function() {
-      // TODO: remove user from game and Crafty display here
+      // TODO: put the user token back as available
+      Crafty.trigger("NW:PlayerDisconnected", {token: NW.myToken});
+      NW.myToken = null;
     });
 
     NW.socket.on("new_game:success", function(data) {
@@ -18,8 +20,9 @@
       NW.error("problem creating game\n\n"+data.error);
     });
 
-    NW.socket.on("join_game:success", function(game) {
-      $(window).trigger("NK:join_game:success", game);
+    NW.socket.on("join_game:success", function(data) {
+      NW.myToken = data.token;
+      $(window).trigger("NK:join_game:success", data);
     });
 
     NW.socket.on("join_game:error", function(data) {

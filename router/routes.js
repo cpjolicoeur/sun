@@ -35,7 +35,6 @@ var setRoutes = function(server, models, app, sio) {
     // Remove from any games on disconnect
     socket.on("disconnect", function() {
       socket.get("game_uuid", function(err, uuid) {
-
       });
     });
 

@@ -34,12 +34,12 @@
     } else {
       console.log("player already found", player);
     }
-  }
+  };
 
   NW.game.playerMoved = function(data){
     var player = findPlayer(data.token);
     player && player.ship.trigger("NW:Crafty:PlayerMoved", data);
-  }
+  };
 
   NW.game.playerStartedFiring = function(data){
     var player = findPlayer(data.token);
@@ -48,12 +48,22 @@
     } else {
       player && player.ship.fire();
     }
-  }
+  };
 
-  NW.game.playerStoppedFiring = function(data){
+  NW.game.playerStoppedFiring = function(data) {
     var player = findPlayer(data.token);
     player && (player.ship.firing = false);
-  }
+  };
+
+  NW.game.playerDisconnected = function(data) {
+    // get player from data.token and remove them from the game
+    // and the NW.game.players array
+    var player = findPlayer(data.token);
+    if (player) {
+      player.ship.destroy()
+      NW.game.players = _.reject(NW.game.players, function(p) { return data.token === p.user });
+    }
+  };
 
   NW.game.start = function() {
 
@@ -67,6 +77,7 @@
     Crafty.bind("NW:PlayerMoved", NW.game.playerMoved);
     Crafty.bind("NW:PlayerStartedFiring", NW.game.playerStartedFiring);
     Crafty.bind("NW:PlayerStoppedFiring", NW.game.playerStoppedFiring);
+    Crafty.bind("NW:PlayerDisconnected", NW.game.playerDisconnected);
 
     NW.game.spawnPoint = {
       x: Crafty.viewport.width / 2,

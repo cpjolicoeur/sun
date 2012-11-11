@@ -112,7 +112,6 @@
           y: this._y + this._h / 2 - weapon._h / 2
         });
       }
-
     });
 
 
@@ -127,9 +126,7 @@
             LEFT_ARROW: 180
           })
           .bind("KeyDown", function(e) {
-            if(e.keyCode === Crafty.keys.SPACE) {
-              this.firing = true;
-            }
+            if(e.keyCode === Crafty.keys.SPACE) this.firing = true;
           })
           .bind("KeyUp", function(e) {
             if(e.keyCode === Crafty.keys.SPACE) this.firing = false;
@@ -142,7 +139,7 @@
     Crafty.c("Ship",{
 
       movementSpeed: 5,
-      flickerStart: 0,
+      flickerEnd: 0,
       flickerDuration: 120,
 
       init: function(){
@@ -201,11 +198,9 @@
       }
     });
 
-
 // enemy types:
 //  bold - flys toward player
 //  bitch - flys from player
-//  bored - flys randomly **
 
     Crafty.c("Bug",{
       focused: false,
@@ -240,7 +235,7 @@
           })
         this.destroy()
       }
-    })
+    });
 
     Crafty.c("bold",{
       dx: 2,
@@ -272,25 +267,8 @@
             };
           });
      }
-    })
+    });
 
-
-// Crafty.c("bored",{
-//  movementSpeed: 5,
-//  init: function(){
-//  }
-// })
-
-    // Crafty.c("Bug",{
-    //   init: function(){
-    //     this.requires("2D, Canvas, Color")
-    //       .color("rgb(0,0,255)")
-    //       .attr({
-    //         w: 20,
-    //         h: 20
-    //       })
-    //   }
-    // });
 
     Crafty.c("Sun",{
       health: 10,
@@ -315,17 +293,6 @@
     })
 
     var sun = Crafty.e("Sun")
-
-    // var sun
-    // sun = Crafty.e("Sun, 2D, Canvas, Collision, sun")
-    // sun.attr({
-    //     x: Crafty.viewport.width / 2 - sun._w / 2,
-    //     y: Crafty.viewport.height - sun._h
-    //   })
-    // sun.onHit("Bug",function(e){
-    //   window.NW.sounds["explode2"].play();
-    //   e[0].obj.kill();
-    // });
 
     var player;
     NW.player = player = Crafty.e("Ship, Weapon, Player")
@@ -362,6 +329,27 @@
         })
       }
     });
+
+
+    Crafty.c("Spawner",{
+      spawnRate: 50,
+      spawnTypes : ["bold","bitch"],
+      init: function(){
+        this.bind("EnterFrame",function(e){
+          var bug;
+          var type;
+          if(e.frame % this.spawnRate === 0){
+            type = this.spawnTypes[Math.floor(Math.random()*2)]
+            bug = Crafty.e("Bug, "+type)
+            bug.attr({
+              x: Crafty.viewport.width / 2 - bug._w / 2,
+              y: 0,
+              target: player
+            });
+          }
+        })
+      }
+    })
 
     Crafty.e("Spawner")
 

@@ -22,7 +22,10 @@
     },4,0);
     Crafty.sprite(1, "../images/suns.png", {
       sun: [95,0,200,150]
-    })
+    });
+    Crafty.sprite(16, "../images/enemy_1.png", {
+      enemy: [0,0]
+    });
 
     Crafty.e("2D, Canvas, Text").attr({ w: 100, h: 20, x: 150, y: 120 })
       .text("Loading");
@@ -156,7 +159,7 @@
       dx: 2,
       dy: 1,
       init: function(){
-        this.requires("2D")
+        this.requires("2D, Canvas")
           .bind("EnterFrame",function(){
             if(this.y > this.target._y + this.target._h){
             }else if(this.x + this.w < this.target._x){
@@ -177,7 +180,7 @@
      dx: 2,
      dy: 1,
      init: function(){
-        this.requires("2D")
+        this.requires("2D, Canvas")
           .bind("EnterFrame",function(){
             if(this.y > this.target._y + this.target._h){
             }else if(this.x + this.w < this.target._x){
@@ -201,16 +204,16 @@
 //  }
 // })
 
-    Crafty.c("Bug",{
-      init: function(){
-        this.requires("2D, Canvas, Color")
-          .color("rgb(0,0,255)")
-          .attr({
-            w: 20,
-            h: 20
-          })
-      }
-    });
+    // Crafty.c("Bug",{
+    //   init: function(){
+    //     this.requires("2D, Canvas, Color")
+    //       .color("rgb(0,0,255)")
+    //       .attr({
+    //         w: 20,
+    //         h: 20
+    //       })
+    //   }
+    // });
 
     var sun
     sun = Crafty.e("Sun, 2D, Canvas, Collision, sun")
@@ -235,7 +238,7 @@
           var type;
           if(e.frame % this.spawnRate === 0){
             type = this.spawnTypes[Math.floor(Math.random()*2)]
-            bug = Crafty.e("Bug, "+type)
+            bug = Crafty.e("Bug, 2D, Canvas, enemy, "+type)
             bug.attr({
               x: Crafty.viewport.width / 2 - bug._w / 2,
               y: 0,
@@ -244,7 +247,7 @@
           }
         })
       }
-    })
+    });
 
     Crafty.e("Spawner")
 

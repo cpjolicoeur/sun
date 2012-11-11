@@ -144,7 +144,7 @@
           } else if ( pseudo_pixels[i][j] == 2 ){
             ship_context.fillStyle  = color;
           } else {
-            ship_context.fillStyle  = '#666';
+            ship_context.fillStyle  = '#333';
           }
           ship_context.fillRect(pixel_size*j, pixel_size*i, pixel_size, pixel_size);
         }

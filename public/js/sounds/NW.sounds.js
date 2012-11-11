@@ -1,6 +1,6 @@
 !(function() {
   // uncomment to mute
-  // soundManager.mute();
+  soundManager.mute();
   window.NW       = window.NW || {};
 
   var sounds = {};

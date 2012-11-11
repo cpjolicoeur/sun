@@ -25,6 +25,9 @@
     Crafty.sprite(16, "../images/enemy_1.png", {
       enemy: [0,0]
     });
+    Crafty.sprite(16, "../images/explosion.png", {
+      explosion: [0,0]
+    })
 
     Crafty.e("2D, Canvas, Text").attr({ w: 100, h: 20, x: 150, y: 120 })
       .text("Loading");
@@ -83,7 +86,7 @@
           .onHit("Bug",function(e){
             NW.sounds.explode.play()
             this.destroy();
-            e[0].obj.destroy();
+            e[0].obj.kill();
           });
       }
     });
@@ -139,9 +142,21 @@
     Crafty.c("Ship",{
 
       movementSpeed: 5,
+      flickerStart: 0,
+      flickerDuration: 120,
 
       init: function(){
-        this.requires("2D, Canvas, Collision, ship")
+        this.requires("2D, Canvas, Collision, Flicker, ship")
+          .bind("EnterFrame",function(e){
+            if(this.flickering){
+              if(!this.flickerEnd){
+                this.flickerEnd = e.frame + this.flickerDuration;
+              }else if(e.frame > this.flickerEnd){
+                this.flickerEnd = 0;
+                this.flickering = false;
+              }
+            }
+          })
           .bind("Moved",function(from){
             if(this.x + this.w > Crafty.viewport.width ||
                 this.x + this.w < this.w ||
@@ -151,10 +166,39 @@
             }
           })
           .onHit("Bug",function(e){
-            e[0].obj.destroy()
+            e[0].obj.kill()
+            this.spawn()
           })
+      },
+      spawn: function(){
+        if(this.flickering !== true){
+          this.flickering = true;
+          this.attr({
+            x: Crafty.viewport.width / 2 - this._w / 2,
+            y: Crafty.viewport.height - sun._h - this._w - 20
+          });
+        }
       }
 
+    });
+
+    Crafty.c("Flicker",{
+      flickering: true,
+      init:function(){
+        this.flicker = true;
+        this.bind("EnterFrame",function(frame){
+          if(frame.frame % 5 == 0 && this.flickering){
+            if(this.alpha == 0.0){
+              this.alpha = 1.0;
+            }else{
+              this.alpha = 0.0;
+            }
+          }
+          if(!this.flickering){
+            this.alpha = 1.0;
+          }
+        });
+      }
     });
 
 
@@ -181,6 +225,20 @@
             }
             this.y += this.dy;
           })
+      },
+      kill: function(){
+        var bug = this;
+        Crafty.e("2D, DOM, SpriteAnimation, explosion")
+          .attr({
+            x: bug.x - bug.w / 2,
+            y: bug.y - bug.h / 2
+          })
+          .animate('explode',0,0,4)
+          .animate('explode',4,1)
+          .bind("AnimationEnd",function(){
+            this.destroy()
+          })
+        this.destroy()
       }
     })
 
@@ -242,14 +300,14 @@
       })
     sun.onHit("Bug",function(e){
       window.NW.sounds["explode2"].play();
-      e[0].obj.destroy();
+      e[0].obj.kill();
     });
 
     var player;
     NW.player = player = Crafty.e("Ship, Weapon, Player")
     player.attr({
         x: Crafty.viewport.width / 2 - player._w / 2,
-        y: Crafty.viewport.height - sun._h - player._w - 10
+        y: Crafty.viewport.height - sun._h - player._w - 20
       });
 
     Crafty.c("Spawner",{

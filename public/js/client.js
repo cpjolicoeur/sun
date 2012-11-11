@@ -94,7 +94,10 @@
 
       init: function(){
         this.bind("EnterFrame",function(e){
-          if(e.frame % this.fireRate === 0 && this.firing) this.fire();
+          if(e.frame % this.fireRate === 0 && this.firing) {
+            NW.sounds.shoot.play()
+            this.fire();
+          }
         });
       },
 
@@ -121,7 +124,6 @@
           })
           .bind("KeyDown", function(e) {
             if(e.keyCode === Crafty.keys.SPACE) {
-              NW.sounds.shoot.play()
               this.firing = true;
             }
           })
@@ -238,6 +240,7 @@
         y: Crafty.viewport.height - sun._h
       })
     sun.onHit("Bug",function(e){
+      window.NW.sounds["explode2"].play();
       e[0].obj.destroy();
     });
 

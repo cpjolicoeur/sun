@@ -2,6 +2,7 @@
   window.NW = window.NW || {};
 
   window.NW.game = function() {
+    NW.setHealth("100%")
     Crafty.init(800,600);
     Crafty.canvas.init();
     NW.drawSpace();

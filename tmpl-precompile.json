@@ -16,7 +16,8 @@
                 "controller_view",
                 "controller_calibrate",
                 "game_view",
-                "player_connect_view"
+                "player_connect_view",
+                "health_bar_view"
             ]
         }
     ]

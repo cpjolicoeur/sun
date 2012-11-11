@@ -1,6 +1,6 @@
 {
   "name": "nko3-narwhals",
-  "version": "0.0.1-5",
+  "version": "0.7.1-1",
   "description": "Node Knockout 2012 entry",
   "main": "server.js",
   "license": "RESTRICTED",

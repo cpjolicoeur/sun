@@ -7,6 +7,7 @@
 
   NW.game = function(data) {
     NW.setHealth("100%")
+    NW.drawSpace();
 
     Crafty.bind("NW:PlayerMoved", playerMoved);
     Crafty.bind("NW:PlayerShoot", playerShoot);
@@ -14,7 +15,6 @@
 
     Crafty.init(800,600);
     Crafty.canvas.init();
-    NW.drawSpace();
 
     //automatically play the loading scene
     Crafty.scene("loading");

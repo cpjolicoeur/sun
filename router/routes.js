@@ -83,7 +83,7 @@ var setRoutes = function(server, models, app, sio) {
     socket.on("player:fire", function(data) {
       socket.get("game_uuid", function(err, uuid) {
         socket.get("user_token", function(err, token) {
-          socket.broadcast.to(uuid).volatile.emit("player:fire", {token: token});
+          socket.broadcast.to(uuid).volatile.emit("player:fire", {token: token, rapid: data.rapid});
         });
       });
     });

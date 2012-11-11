@@ -43,10 +43,16 @@
 
   NW.game.playerStartedFiring = function(data){
     var player = findPlayer(data.token);
-    player && player.ship.fire();
+    if ('start' == data.rapid) {
+      player && (player.ship.firing = true);
+    } else {
+      player && player.ship.fire();
+    }
   }
 
   NW.game.playerStoppedFiring = function(data){
+    var player = findPlayer(data.token);
+    player && (player.ship.firing = false);
   }
 
   NW.game.start = function() {

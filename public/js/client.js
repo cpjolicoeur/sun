@@ -14,8 +14,6 @@
   Crafty.scene("loading", function () {
     //load takes an array of assets and a callback when complete
 
-    //black background with some loading text
-
     //turn the sprite map into usable components
     Crafty.sprite(24, window.NW.generator(), {
         ship: [0, 3]

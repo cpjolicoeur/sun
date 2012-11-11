@@ -33,7 +33,7 @@
         } else if (window.orientation == 0) {
           return {x: -1 * e.gamma, z: e.beta, orientation: window.orientation}
         } else if (window.orientation == -90) {
-          return {x: -1 * e.beta, z: e.gamma, orientation: window.orientation}
+          return {x: e.beta, z: e.gamma, orientation: window.orientation}
         } else {
           return {x: e.gamma, z: e.beta * -1, orientation: window.orientation}
         }

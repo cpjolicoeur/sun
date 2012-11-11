@@ -9,7 +9,7 @@
     NW.socket.on("new_game:success", function(data) {
       // TODO: display all 4 game tokens here
       _.each(data.game.tokens, function(token, idx) {
-        var li = $("<li/>").addClass("token").html("Player "+(idx+1)+": <span>"+token+"</span>");
+        var li = $("<li/>").addClass("token").data('playerNum', idx+1).html("Player "+(idx+1)+": <span>"+token+"</span>");
         $(".tokens", NW.$("#player_connect")).append(li);
       });
     });
@@ -33,7 +33,7 @@
     });
 
     NW.socket.on("player:fire", function(data) {
-      Crafty.trigger("NW:PlayerShoot", data);
+      Crafty.trigger("NW:PlayerStartedFiring", data);
     });
   }
 })();

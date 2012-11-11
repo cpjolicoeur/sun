@@ -2,8 +2,9 @@
   window.NW = window.NW || {};
 
   window.NW.game = function() {
-    Crafty.init(800,600)
-    Crafty.canvas.init()
+    Crafty.init(800,600);
+    Crafty.canvas.init();
+    NW.drawSpace();
     //automatically play the loading scene
     Crafty.scene("loading");
   }
@@ -23,7 +24,6 @@
       sun: [95,0,200,150]
     })
 
-    Crafty.background("#000");
     Crafty.e("2D, Canvas, Text").attr({ w: 100, h: 20, x: 150, y: 120 })
       .text("Loading");
     Crafty.scene("main")

@@ -22,7 +22,7 @@
     // loop through any queued players and add them to the game
     _.each(NW.playersQueued, function(p, idx) {
       var $elm = $(findPlayerElm(p.token));
-      if ($elm) {
+      if ($elm && $elm.length) {
         Crafty.trigger("NW:PlayerAdded", p);
         swapTokenForPlayer($elm, $elm.data('playerNum'));
       }
@@ -41,8 +41,8 @@
   // otherwise add the new player to the game
   function showGame(evt, data) {
     // only show game_view if this was from our token
-    var elm = $(findPlayerElm(data.token));
-    if (elm) {
+    var $elm = $(findPlayerElm(data.token));
+    if ($elm && $elm.length) {
       if (NW.inGame) {
         // add our new player and update tokens UI
         Crafty.trigger("NW:PlayerAdded", data);

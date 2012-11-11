@@ -2,8 +2,8 @@
   window.NW = window.NW || {};
 
   function init() {
-    NW.controller_calibrate(enterTokenForm);
-    // enterTokenForm();
+    // NW.controller_calibrate(enterTokenForm);
+    enterTokenForm();
   }
 
   function enterTokenForm() {

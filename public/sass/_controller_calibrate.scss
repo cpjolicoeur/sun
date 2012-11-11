@@ -1,8 +1,13 @@
 #controller_calibrate {
   $orange: orange;
+  text-align: center;
   b {
     font-weight: bold;
     color: $orange;
+  }
+  .start {
+    padding: 20px 40px 20px 60px;
+    font-weight: bold;
   }
   .half {
     margin-bottom: $spacing_block * 2;

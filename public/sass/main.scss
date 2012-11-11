@@ -35,11 +35,22 @@ html {
     font-size: 30px;
     margin-bottom: $spacing_block * 2;
     @extend %maven_pro;
+    text-align: center;
   }
   h5.value {
     color: #71C97F;
     font-size: 30px;
   }
+}
+
+.description {
+  line-height: 170%;
+  width: 400px;
+  margin: 0px auto;
+  margin-bottom: $spacing_block * 2;
+  background: url("/images/suns.png");
+  background-position: 362px -20px;
+  background-repeat: no-repeat;
 }
 
 #game_token {

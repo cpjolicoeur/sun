@@ -28,6 +28,10 @@
   }
 
   function domListeners() {
+    $('#choose_mode .btn.controller , #choose_mode .btn.screen').on('click', function() {
+      $('p.description').remove();
+    });
+
     $('#choose_mode .btn.controller').on('click', NW.controller_view.init);
     $('#choose_mode .btn.screen').on('click', NW.screen_view.init);
   }

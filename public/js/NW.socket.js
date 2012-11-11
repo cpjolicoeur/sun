@@ -14,8 +14,8 @@
       NW.error("problem creating game\n\n"+data.error);
     });
 
-    NW.socket.on("join_game:success", function(data) {
-      $(window).trigger("NK:join_game:success");
+    NW.socket.on("join_game:success", function(game) {
+      $(window).trigger("NK:join_game:success", game);
       NW.inGame = true;
     });
 
@@ -28,11 +28,11 @@
       var t = new Date().getTime();
       var latency = t - data.ts;
       NW.error("orient_change - latency: "+latency+", x: "+data.controller.x);
-      NW.player && NW.player.trigger("NW:PlayerMoved", {controller: data.controller, token: data.token});
+      Crafty.trigger("NW:PlayerMoved", {controller: data.controller, token: data.token});
     });
 
     NW.socket.on("player:fire", function(data) {
-      NW.player.shoot();
+      Crafty.trigger("NW:PlayerShoot", data.token);
     });
   }
 })();

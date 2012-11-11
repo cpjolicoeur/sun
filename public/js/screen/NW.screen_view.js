@@ -11,9 +11,9 @@
     $(window).on('NK:join_game:success', showGame);
   }
 
-  function showGame() {
+  function showGame(evt, data) {
     NW.$('#hold').html(NW.templates.game_view());
-    NW.game();
+    NW.game(data);
   }
 
   function createNewGame() {

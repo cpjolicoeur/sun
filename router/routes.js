@@ -70,7 +70,7 @@ var setRoutes = function(server, models, app, sio) {
             socket.set("user_token", data.token, function() {
               console.log("join game", game, data.token);
               // tell everyone in the game that a new user has joined
-              sio.sockets.in(game.uuid).emit("join_game:success", {game: game, user: data.token});
+              sio.sockets.in(game.uuid).emit("join_game:success", {game: game, token: data.token});
             });
           });
         }
@@ -81,7 +81,7 @@ var setRoutes = function(server, models, app, sio) {
     socket.on("orient_change", function(data) {
       socket.get("game_uuid", function(err, uuid) {
         socket.get("user_token", function(err, token) {
-          socket.broadcast.to(uuid).volatile.emit("orient_change", {controller: data.controller, ts: data.ts, user: token});
+          socket.broadcast.to(uuid).volatile.emit("orient_change", {controller: data.controller, ts: data.ts, token: token});
         });
       });
     });
@@ -90,7 +90,7 @@ var setRoutes = function(server, models, app, sio) {
     socket.on("player:fire", function(data) {
       socket.get("game_uuid", function(err, uuid) {
         socket.get("user_token", function(err, token) {
-          socket.broadcast.to(uuid).volatile.emit("player:fire", {user: token});
+          socket.broadcast.to(uuid).volatile.emit("player:fire", {token: token});
         });
       });
     });

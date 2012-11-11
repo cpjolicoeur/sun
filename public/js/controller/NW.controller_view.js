@@ -1,6 +1,21 @@
 !(function() {
   window.NW = window.NW || {};
 
+  // Deactivating distracting Text Selection:
+  // from: http://stackoverflow.com/questions/1794220/how-to-disable-mobilesafari-auto-selection
+  $.fn.extend({
+    disableSelection : function() {
+      this.each(function() {
+        this.onselectstart = function() {
+          return false;
+        };
+        this.unselectable = "on";
+        $(this).css('-moz-user-select', 'none');
+        $(this).css('-webkit-user-select', 'none');
+      });
+    }
+  });
+
   function init() {
     NW.controller_calibrate(enterTokenForm);
     // enterTokenForm();
@@ -25,6 +40,7 @@
   }
 
   function showController(e) {
+    $(this).disableSelection();
     NW.$('#hold').html(NW.templates.controller_view());
     $(".fire", NW.$("#hold")).on('click', fireWeapon);
     NW.inGame = true;

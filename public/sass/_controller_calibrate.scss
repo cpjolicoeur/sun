@@ -23,15 +23,15 @@
   .counter {
     margin-top: $spacing_block;
   }
-  @media screen and(max-width: 480px) {
+  @media screen and(max-width: 640px) {
     .half {
       width: 45%;
       float: left;
     }
     .to_follow {
+      margin-top: 50px;
       width: 30%;
       display: inline-block;
-      margin-top: 0px;
       height: 100px;
       float: left;
     }

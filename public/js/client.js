@@ -20,7 +20,7 @@
         ship: [0, 0,24,32]
     },4,0);
     Crafty.sprite(1, "../images/suns.png", {
-      sun: [95,0,200,200]
+      sun: [95,0,200,170]
     });
     Crafty.sprite(16, "../images/enemy_1.png", {
       enemy: [0,0]
@@ -292,16 +292,40 @@
     //   }
     // });
 
-    var sun
-    sun = Crafty.e("Sun, 2D, Canvas, Collision, sun")
-    sun.attr({
-        x: Crafty.viewport.width / 2 - sun._w / 2,
-        y: Crafty.viewport.height - sun._h
-      })
-    sun.onHit("Bug",function(e){
-      window.NW.sounds["explode2"].play();
-      e[0].obj.kill();
-    });
+    Crafty.c("Sun",{
+      health: 10,
+      init: function(){
+        this.requires("2D, Canvas, Collision, sun")
+          .attr({
+            x: Crafty.viewport.width / 2 - this._w / 2,
+            y: Crafty.viewport.height - this._h
+          })
+          .onHit("Bug",function(e){
+            if(this.health > 0){
+              this.health--;
+              window.NW.setHealth((this.health*10)+"%")
+              window.NW.sounds["explode2"].play();
+              e[0].obj.kill();
+            }else{
+              Crafty.pause();
+              alert('Game Over Bitches');
+            }
+          })
+      }
+    })
+
+    var sun = Crafty.e("Sun")
+
+    // var sun
+    // sun = Crafty.e("Sun, 2D, Canvas, Collision, sun")
+    // sun.attr({
+    //     x: Crafty.viewport.width / 2 - sun._w / 2,
+    //     y: Crafty.viewport.height - sun._h
+    //   })
+    // sun.onHit("Bug",function(e){
+    //   window.NW.sounds["explode2"].play();
+    //   e[0].obj.kill();
+    // });
 
     var player;
     NW.player = player = Crafty.e("Ship, Weapon, Player")

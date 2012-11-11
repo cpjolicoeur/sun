@@ -32,9 +32,17 @@
   function findPlayerElm(token) {
     var $avail_tokens = $(".token", NW.$("#player_connect"));
     return _.find($avail_tokens, function(elm) {
-      return token === $(elm).find("span").html();
+      return token === $(elm).data('token');
     });
   }
+
+  NW.tokenAvailable = function(token) {
+    console.log("Making token available", token);
+    var $elm = $(findPlayerElm(token));
+    if ($elm && $elm.length) {
+      $elm.html("Player "+$elm.data('playerNum')+": <span>"+$elm.data('token')+"</span>").removeClass('connected');
+    }
+  };
 
   // find our player number in the available list of tokens
   // If this is the first player, then launch the game
@@ -58,7 +66,6 @@
   }
 
   function swapTokenForPlayer($elm, player_num) {
-    $elm.data('token', $elm.html());
     $elm.html("Player "+player_num+" connected").addClass("connected");
   }
 

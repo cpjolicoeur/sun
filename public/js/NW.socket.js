@@ -5,13 +5,14 @@
     NW.socket.on("disconnect", function() {
       // TODO: put the user token back as available
       Crafty.trigger("NW:PlayerDisconnected", {token: NW.myToken});
+      NW.tokenAvailable(NW.myToken);
       NW.myToken = null;
     });
 
     NW.socket.on("new_game:success", function(data) {
       // TODO: display all 4 game tokens here
       _.each(data.game.tokens, function(token, idx) {
-        var li = $("<li/>").addClass("token").data('playerNum', idx+1).html("Player "+(idx+1)+": <span>"+token+"</span>");
+        var li = $("<li/>").addClass("token").data('playerNum', idx+1).data('token', token).html("Player "+(idx+1)+": <span>"+token+"</span>");
         $(".tokens", NW.$("#player_connect")).append(li);
       });
     });
@@ -27,6 +28,11 @@
 
     NW.socket.on("join_game:error", function(data) {
       NW.error("problem joining game\n\n"+ data.error);
+    });
+
+    NW.socket.on("player:disconnected", function(data) {
+      Crafty.trigger("NW:PlayerDisconnected", {token: data.token});
+      NW.tokenAvailable(NW.myToken);
     });
 
     NW.socket.on("orient_change", function(data) {

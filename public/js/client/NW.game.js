@@ -8,6 +8,7 @@
     });
   }
 
+  NW.game.score = 0;
   NW.game.players = [];
 
   NW.game.nextPlayer = (function(){

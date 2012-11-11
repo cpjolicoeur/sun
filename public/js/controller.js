@@ -17,7 +17,7 @@
 
     // returns if the current device supports orientation changes and device motion
     function supported() {
-      return !!(window.DeviceMotionEvent) || !!(window.DeviceOrientationEvent);
+      return !!(window.DeviceOrientationEvent);
     }
 
     function onMotionChange(e) {
@@ -81,11 +81,7 @@
 
     (function init() {
       if (supported) {
-        if (!!(window.DeviceMotionEvent)) {
-          window.addEventListener("devicemotion", onMotionChange);
-        } else if (!!(window.DeviceOrientationEvent)) {
-          window.addEventListener("deviceorientation", onOrientationChange);
-        }
+        window.addEventListener("deviceorientation", onOrientationChange);
       }
     }())
 

@@ -11,9 +11,11 @@ window.NW.game.initScenes = function(){
     ],function(){
 
       Crafty.sprite(1,window.NW.generator(),{
-          ship1: [0, 0, 24, 32],
-          ship2: [0, 0, 24, 32]
-      },4,0);
+          ship1: [0, 0, 24, 30],
+          ship2: [0, 84, 24, 25],
+          ship3: [0, 58, 24, 25],
+          ship4: [0, 32, 24, 25]
+      });
 
       Crafty.sprite(1,"../images/suns.png",{
         sun: [95,0,200,170]

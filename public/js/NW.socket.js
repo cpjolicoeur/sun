@@ -29,7 +29,6 @@
     NW.socket.on("orient_change", function(data) {
       var t = new Date().getTime();
       var latency = t - data.ts;
-      NW.error("orient_change - latency: "+latency+", x: "+data.controller.x);
       Crafty.trigger("NW:PlayerMoved", {controller: data.controller, token: data.token});
     });
 
